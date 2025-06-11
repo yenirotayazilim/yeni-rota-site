@@ -168,44 +168,4 @@ html, body, #__next {
 .nav-link:hover,
 .nav-link:focus {
   color: var(--color-primary-hover);
-}
-
-/* SADECE ANA SAYFA POPÜLER EĞİTİMLER BÖLÜMÜ için Beyaz Yazı */
-/* Ana sayfadaki "Popüler Eğitimler" section'ındaki kartlar için spesifik selector */
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card,
-.popular-courses .wow-egitim-card,
-.home-popular-courses .wow-egitim-card {
-  color: white !important;
-}
-
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h1,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h2,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h3,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h4,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h5,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card h6,
-section:has(h2:contains("Popüler Eğitimler")) .wow-egitim-card p,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h1,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h2,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h3,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h4,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h5,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card h6,
-section:has(h1:contains("Popüler Eğitimler")) .wow-egitim-card p,
-.popular-courses .wow-egitim-card h1,
-.popular-courses .wow-egitim-card h2,
-.popular-courses .wow-egitim-card h3,
-.popular-courses .wow-egitim-card h4,
-.popular-courses .wow-egitim-card h5,
-.popular-courses .wow-egitim-card h6,
-.popular-courses .wow-egitim-card p,
-.home-popular-courses .wow-egitim-card h1,
-.home-popular-courses .wow-egitim-card h2,
-.home-popular-courses .wow-egitim-card h3,
-.home-popular-courses .wow-egitim-card h4,
-.home-popular-courses .wow-egitim-card h5,
-.home-popular-courses .wow-egitim-card h6,
-.home-popular-courses .wow-egitim-card p {
-  color: white !important;
-}
+} 
