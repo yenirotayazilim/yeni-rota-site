@@ -291,7 +291,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold mb-2 bg-gradient-to-r from-[var(--color-primary)] to-[var(--color-primary-hover)] bg-clip-text text-transparent" style={{ fontFamily: 'Urbanist, sans-serif' }}>
+                  <h3 className="text-lg font-bold mb-2 text-white" style={{ fontFamily: 'Urbanist, sans-serif' }}>
                     {egitim.title}
                   </h3>
                   <p className="text-sm text-white font-medium line-clamp-2" style={{ fontFamily: 'Urbanist, sans-serif' }}>

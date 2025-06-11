@@ -28,7 +28,7 @@ export default function AppStoreButtons() {
 
         {/* App Store */}
         <a
-          href="https://apps.apple.com/tr/app/your-app-id"
+          href="https://apps.apple.com/tr/app/rotaedu/id6478789891?l=tr"
           aria-label="App Store"
           target="_blank"
           rel="noopener noreferrer"

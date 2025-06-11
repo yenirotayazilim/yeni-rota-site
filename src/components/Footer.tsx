@@ -49,16 +49,16 @@ export default function Footer() {
               <div>
                 <p className="font-semibold tracking-wide text-teal-400">Topluluk</p>
                 <ul className="mt-2 space-y-2">
-                  <li><a href="#" className="text-indigo-100 hover:text-teal-400">Instagram</a></li>
-                  <li><a href="#" className="text-indigo-100 hover:text-teal-400">LinkedIn</a></li>
-                  <li><a href="#" className="text-indigo-100 hover:text-teal-400">YouTube</a></li>
+                  <li><a href="https://www.instagram.com/rotaedu.tr/" className="text-indigo-100 hover:text-teal-400">Instagram</a></li>
+                  
+                  <li><a href="https://www.youtube.com/c/AdemerE%C4%9FitimKurumu" className="text-indigo-100 hover:text-teal-400">YouTube</a></li>
                 </ul>
               </div>
               <div>
                 <p className="font-semibold tracking-wide text-teal-400">Yasal</p>
                 <ul className="mt-2 space-y-2">
-                  <li><a href="#" className="text-indigo-100 hover:text-teal-400">Gizlilik</a></li>
-                  <li><a href="#" className="text-indigo-100 hover:text-teal-400">Kullanım Şartları</a></li>
+                  <li><a href="/kvkk" className="text-indigo-100 hover:text-teal-400">Gizlilik</a></li>
+                  <li><a href="/kvkk" className="text-indigo-100 hover:text-teal-400">Kullanım Şartları</a></li>
                 </ul>
               </div>
             </div>
