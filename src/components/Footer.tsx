@@ -68,8 +68,7 @@ export default function Footer() {
           <div className="flex flex-col justify-between pt-5 pb-10 border-t border-indigo-400 sm:flex-row">
             <p className="text-sm text-gray-100">© {new Date().getFullYear()} Yeni Rota. Tüm hakları saklıdır.</p>
             <div className="flex items-center mt-4 space-x-4 sm:mt-0">
-              <a href="https://www.instagram.com/maarifegitim/" className="text-indigo-100 hover:text-teal-400">Instagram</a>
-              <a href="#" className="text-indigo-100 hover:text-teal-400">LinkedIn</a>
+              <a href="https://www.instagram.com/rotaedu.tr/" className="text-indigo-100 hover:text-teal-400">Instagram</a>              
               <a href="https://www.youtube.com/channel/UCT8uZhW9NDLPyy27zsm0UYQ" className="text-indigo-100 hover:text-teal-400">YouTube</a>
             </div>
           </div>
