@@ -115,7 +115,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* 🚀 RESPOND.IO WIDGET - CRISP YERİNE! */}
         <Script 
           id="respondio-widget"
-          src="https://cdn.respond.io/webchat/widget/widget.js?cId=3dd95d3979296bdb8b64d34b3d6f" 
+          src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e" 
           strategy="afterInteractive"
         />
         
