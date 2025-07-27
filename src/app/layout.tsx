@@ -3,7 +3,8 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Script from "next/script";
-import CrispScript from "@/components/CrispScript";
+// CrispScript kaldırıldı! 🚀
+// import CrispScript from "@/components/CrispScript";  <-- Bu satır kaldırıldı
 // Eğer Framer Motion ile sayfa geçişi kullanıyorsan:
 import PageTransitionWrapper from "@/app/PageTransitionWrapper";
 
@@ -110,7 +111,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </PageTransitionWrapper>
           {/* Motion kullanmayacaksan yukarıdaki iki satırı silip sadece {children} yazabilirsin */}
         </main>
-        <CrispScript />
+        
+        {/* 🚀 RESPOND.IO WIDGET - CRISP YERİNE! */}
+        <Script 
+          id="respondio-widget"
+          src="https://cdn.respond.io/webchat/widget/widget.js?cId=3dd95d3979296bdb8b64d34b3d6f" 
+          strategy="afterInteractive"
+        />
+        
         {FB_PIXEL && (
           <noscript>
             {/* eslint-disable-next-line @next/next/no-img-element */}
