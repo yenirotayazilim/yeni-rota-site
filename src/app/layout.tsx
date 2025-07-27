@@ -113,11 +113,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         
         {/* 🚀 RESPOND.IO WIDGET - CRISP YERİNE! */}
-        <Script 
-          id="respondio-widget"
-          src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e" 
-          strategy="afterInteractive"
-        />
+        {process.env.NODE_ENV === "production" && (
+          <Script
+            id="respondio-widget"
+            src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e"
+            strategy="afterInteractive"
+          />
+        )}
         
         {FB_PIXEL && (
           <noscript>
