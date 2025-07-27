@@ -5,8 +5,8 @@ import { useEffect } from "react";
 export default function RespondIoAutoOpen() {
   useEffect(() => {
     const timer = setTimeout(() => {
-      if (typeof window !== "undefined" && (window as any).respondIO) {
-        (window as any).respondIO.open();
+      if (typeof window !== "undefined" && window.respondIO) {
+        window.respondIO.open();
       }
     }, 2000);
 
