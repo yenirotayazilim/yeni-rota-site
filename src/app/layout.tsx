@@ -8,7 +8,7 @@ import Script from "next/script";
 // Eğer Framer Motion ile sayfa geçişi kullanıyorsan:
 import PageTransitionWrapper from "@/app/PageTransitionWrapper";
 
-import RespondIoAutoOpen from "@/components/RespondIoAutoOpen";
+
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
@@ -116,13 +116,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
         <Script
           id="respondio"
-          src="https://cdn.respond.io/webchat/widget/widget.js?cId=3507606efa42f0af3cb4a1f543513b8"
+          src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e"
           strategy="afterInteractive"
         />
-
-        <RespondIoAutoOpen />  
-
-        
+  
         {FB_PIXEL && (
           <noscript>
             {/* eslint-disable-next-line @next/next/no-img-element */}
