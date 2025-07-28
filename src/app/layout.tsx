@@ -4,11 +4,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Script from "next/script";
 
-
 // Eğer Framer Motion ile sayfa geçişi kullanıyorsan:
 import PageTransitionWrapper from "@/app/PageTransitionWrapper";
-
-
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
@@ -114,8 +111,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {/* Motion kullanmayacaksan yukarıdaki iki satırı silip sadece {children} yazabilirsin */}
         </main>
 
+        {/* 🚀 RESPOND.IO WIDGET - ID DÜZELTİLDİ! */}
         <Script
-          id="respondio"
+          id="respondio__widget"
           src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e"
           strategy="afterInteractive"
         />
