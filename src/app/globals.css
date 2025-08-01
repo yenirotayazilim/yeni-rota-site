@@ -4,25 +4,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;700&display=swap');
 
 :root {
-  --background: radial-gradient(ellipse at 40% 80%, #e0f6ff 0%, #fff 45%, #a0e3ff 100%);
-  --foreground: #0D1B2A;
-
+  /* Açık tema renkleri */
+  --background: radial-gradient(ellipse at 40% 80%, #f5f7fa 0%, #e3e9f7 45%, #d1daf0 100%);
+  --foreground: #121212; /* Koyu metin */
+  
   --color-primary: #6A0572;
   --color-primary-hover: #8C1A85;
-  --color-footer-bg: #4C0253;
-  --color-nav-bg: #FFFFFF;
-  --color-surface-bg: #F8F9FA;
+  
+  --color-nav-bg: #ffffff;
+  --color-footer-bg: #e7e9f9;
+  --color-surface-bg: #f7f9fc;
 }
 
+/* Koyu tema renkleri */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: radial-gradient(ellipse at 40% 80%, #161f2a 0%, #283346 45%, #172f43 100%);
-    --foreground: #ededed;
+    --foreground: #ededed; /* Açık metin */
     
     --color-nav-bg: #161f2a;
     --color-footer-bg: #0D1B2A;
+    --color-surface-bg: #283346;
   }
 }
+@media (prefers-color-scheme: light) {
+  .text-dark {
+    color: #111111 !important;
+  }
+}
+
 
 body {
   background: var(--background);

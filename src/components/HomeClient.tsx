@@ -89,7 +89,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
           <div className="max-w-7xl mx-auto px-6 py-20 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             {/* Sol İçerik */}
             <div className="flex flex-col gap-9 z-10">
-              <span className="text-white uppercase font-bold text-sm tracking-widest hero-anim" data-aos="fade-right" style={{ fontFamily: 'Urbanist, sans-serif' }}>
+              <span className="text-white uppercase font-bold text-sm tracking-widest hero-anim text-dark" data-aos="fade-right" style={{ fontFamily: 'Urbanist, sans-serif' }}>
                 Eğitimde Yeni Seviye
               </span>
               <h1 data-aos="fade-left"
@@ -251,7 +251,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
           <div className="flex flex-col sm:flex-row items-center justify-between max-w-7xl mx-auto mb-12 gap-4">
             <h2
               data-aos="fade-down-right"
-              className="text-3xl md:text-4xl font-bold text-white text-center sm:text-left"
+              className="text-3xl md:text-4xl font-bold text-white text-dark text-center sm:text-left"
               style={{ fontFamily: 'Urbanist, sans-serif' }}
             >
               Popüler Eğitimler
@@ -291,10 +291,10 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-lg font-bold mb-2 text-white" style={{ fontFamily: 'Urbanist, sans-serif' }}>
+                  <h3 className="text-lg font-bold mb-2 text-white text-dark" style={{ fontFamily: 'Urbanist, sans-serif' }}>
                     {egitim.title}
                   </h3>
-                  <p className="text-sm text-white font-medium line-clamp-2" style={{ fontFamily: 'Urbanist, sans-serif' }}>
+                  <p className="text-sm text-white text-dark font-medium line-clamp-2" style={{ fontFamily: 'Urbanist, sans-serif' }}>
                     {egitim.description}
                   </p>
                 </div>
@@ -351,7 +351,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
           }}
         >
           <h2
-            className="text-3xl md:text-4xl font-bold text-center mb-12 text-white fade-in-up"
+            className="text-3xl md:text-4xl font-bold text-center mb-12 text-white text-dark fade-in-up"
             data-aos="flip-down"
             style={{ fontFamily: 'Urbanist, sans-serif' }}
           >
@@ -433,7 +433,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
           }}
         >
           <p
-            className="text-xs md:text-sm uppercase text-white tracking-widest mb-3 fade-up"
+            className="text-xs md:text-sm uppercase text-white text-dark tracking-widest mb-3 fade-up"
             data-aos="fade-up"
             style={{ fontFamily: 'Urbanist, sans-serif' }}
           >
@@ -441,7 +441,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
           </p>
 
           <h2
-            className="text-3xl md:text-4xl font-bold mb-12 text-white fade-up"
+            className="text-3xl md:text-4xl font-bold mb-12 text-white text-dark fade-up"
             data-aos="zoom-in"
             style={{ fontFamily: 'Urbanist, sans-serif' }}
           >
@@ -534,7 +534,7 @@ export default function HomeClient({ egitimler, egitmenler, yorumlar }: Props) {
         >
           <div className="max-w-6xl mx-auto">
             <h2
-              className="text-center text-2xl md:text-3xl font-bold mb-8 tracking-tight text-white"
+              className="text-center text-2xl md:text-3xl font-bold mb-8 tracking-tight text-white text-dark"
               style={{ fontFamily: 'Urbanist, sans-serif' }}
             >
               İş Ortaklarımız
