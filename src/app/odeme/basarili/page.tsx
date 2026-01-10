@@ -1,7 +1,7 @@
 "use client" // Next.js'e bunun tarayıcıda çalışacağını söylüyoruz
 import Link from "next/link"
 import { useEffect } from "react"
-import confetti from "canvas-confetti"
+
 
 export default function OdemeBasarili() {
 
