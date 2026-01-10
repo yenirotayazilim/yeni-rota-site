@@ -2,23 +2,25 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   try {
-    // Banka verileri "application/x-www-form-urlencoded" olarak POST eder
     const formData = await request.formData();
     const data = Object.fromEntries(formData.entries());
 
-    console.log("Bankadan Gelen Yanıt:", data);
+    // Bankadan gelen mdStatus: 1 başarılı 3D doğrulamasıdır [cite: 670]
+    // Response: Approved ise banka ödemeyi onaylamıştır 
+    const isSuccess = data.mdStatus === '1' && data.Response === 'Approved';
 
-    // mdStatus=1 başarılı 3D doğrulaması demektir [cite: 670]
-    // Response=Approved ise banka ödemeyi onaylamıştır [cite: 668]
-    if (data.mdStatus === '1' && data.Response === 'Approved') {
-       // Başarılı sayfasına yönlendir (303 kullanarak GET'e zorla)
-       return NextResponse.redirect(new URL('/odeme/basarili', request.url), 303);
+    if (isSuccess) {
+      // Başarılı işlemde okUrl mantığıyla yönlendiriyoruz [cite: 95]
+      // 303 status kodu POST isteğini GET'e dönüştürerek 405 hatasını önler
+      return NextResponse.redirect(new URL('/odeme/basarili', request.url), 303);
     } else {
-       // Hata durumunda hata mesajıyla yönlendir [cite: 668]
-       const error = data.ErrMsg || "Odeme Reddedildi";
-       return NextResponse.redirect(new URL(`/odeme/basarisiz?error=${error}`, request.url), 303);
+      // Başarısız işlemde ErrMsg parametresini kullanıyoruz 
+      const hataMesaji = data.ErrMsg || "Odeme reddedildi";
+      return NextResponse.redirect(new URL(`/odeme/basarisiz?ErrMsg=${hataMesaji}`, request.url), 303);
     }
-  } catch (err) {
-    return NextResponse.redirect(new URL('/odeme/basarisiz', request.url), 303);
+  } catch (error) {
+    // Hatanın nedenini terminalde görmek için console.log ekledik (böylece değişken kullanılmış olur)
+    console.error("Callback hatası:", error);
+    return NextResponse.redirect(new URL('/odeme/basarisiz?ErrMsg=SistemselHata', request.url), 303);
   }
 }
