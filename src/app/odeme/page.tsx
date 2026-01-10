@@ -10,7 +10,7 @@ export default function OdemeSayfasi() {
     email: "",
     tutar: ""
   })
-  
+
   const [errors, setErrors] = useState({
     adSoyad: "",
     telefon: "",
@@ -24,7 +24,7 @@ export default function OdemeSayfasi() {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
-    
+
     if (errors[name as keyof typeof errors]) {
       setErrors(prev => ({ ...prev, [name]: "" }))
     }
@@ -71,7 +71,7 @@ export default function OdemeSayfasi() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) return 
+    if (!validateForm()) return
 
     setYukleniyor(true)
     const oid = "ROTA-" + Date.now()
@@ -114,10 +114,10 @@ export default function OdemeSayfasi() {
           lang: "tr",
           rnd: rnd,
           encoding: "utf-8",
+          Email: formData.email, // Dokümandaki büyük 'E' harfine dikkat
+          tel: formData.telefon,
           Faturafirma: formData.adSoyad,
-          Email: formData.email,
-          tel: formData.telefon
-        }
+        };
 
         Object.entries(fields).forEach(([key, value]) => {
           const input = document.createElement("input")
@@ -143,18 +143,18 @@ export default function OdemeSayfasi() {
     <div className="min-h-screen flex flex-col lg:flex-row font-sans selection:bg-[#6A0572] selection:text-white">
       <div className="lg:w-5/12 bg-[#1a0b2e] relative overflow-hidden flex flex-col justify-between p-8 lg:p-12 text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
-           <svg className="w-full h-full" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-             <path d="M50,350 Q200,50 350,350" stroke="url(#grad1)" strokeWidth="2" fill="none" />
-             <path d="M-50,200 Q200,-50 450,200" stroke="url(#grad1)" strokeWidth="2" fill="none" />
-             <defs>
-               <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                 <stop offset="0%" style={{stopColor:"#6A0572", stopOpacity:1}} />
-                 <stop offset="100%" style={{stopColor:"#ff00cc", stopOpacity:1}} />
-               </linearGradient>
-             </defs>
-           </svg>
+          <svg className="w-full h-full" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50,350 Q200,50 350,350" stroke="url(#grad1)" strokeWidth="2" fill="none" />
+            <path d="M-50,200 Q200,-50 450,200" stroke="url(#grad1)" strokeWidth="2" fill="none" />
+            <defs>
+              <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" style={{ stopColor: "#6A0572", stopOpacity: 1 }} />
+                <stop offset="100%" style={{ stopColor: "#ff00cc", stopOpacity: 1 }} />
+              </linearGradient>
+            </defs>
+          </svg>
         </div>
-        
+
         <div className="absolute top-[-100px] left-[-100px] w-96 h-96 bg-[#6A0572] rounded-full blur-[120px] opacity-40"></div>
         <div className="absolute bottom-[-50px] right-[-50px] w-80 h-80 bg-[#8C1A85] rounded-full blur-[100px] opacity-30"></div>
 
@@ -167,7 +167,7 @@ export default function OdemeSayfasi() {
           </Link>
           <div className="mt-8">
             <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight mb-4">
-              Geleceğine <br/>
+              Geleceğine <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#d946ef] to-[#ffffff]">Yatırım Yap.</span>
             </h2>
             <p className="text-gray-400 text-lg max-w-sm">
@@ -179,8 +179,8 @@ export default function OdemeSayfasi() {
         <div className="relative z-10 mt-10 lg:mt-0">
           <div className="flex items-center gap-4 bg-white/5 backdrop-blur-md p-4 rounded-2xl border border-white/10">
             <div className="flex -space-x-3">
-              {[1,2,3].map(i => (
-                 <div key={i} className="w-10 h-10 rounded-full border-2 border-[#1a0b2e] bg-gray-300 flex items-center justify-center text-xs text-black font-bold bg-cover" style={{backgroundImage: `url(https://i.pravatar.cc/100?img=${i+10})`}}></div>
+              {[1, 2, 3].map(i => (
+                <div key={i} className="w-10 h-10 rounded-full border-2 border-[#1a0b2e] bg-gray-300 flex items-center justify-center text-xs text-black font-bold bg-cover" style={{ backgroundImage: `url(https://i.pravatar.cc/100?img=${i + 10})` }}></div>
               ))}
             </div>
             <div>
@@ -210,8 +210,8 @@ export default function OdemeSayfasi() {
                 value={formData.adSoyad}
                 onChange={handleChange}
                 className={`w-full px-4 py-4 bg-gray-50 border-2 rounded-xl outline-none transition-colors text-gray-900 font-medium placeholder-gray-400
-                  ${errors.adSoyad 
-                    ? 'border-red-500 bg-red-50 focus:border-red-500' 
+                  ${errors.adSoyad
+                    ? 'border-red-500 bg-red-50 focus:border-red-500'
                     : 'border-gray-100 focus:bg-white focus:border-[#6A0572]'}
                 `}
                 placeholder="Örn: Mehmet..."
@@ -232,17 +232,17 @@ export default function OdemeSayfasi() {
                   value={formData.telefon}
                   onChange={handleChange}
                   className={`w-full px-4 py-4 bg-gray-50 border-2 rounded-xl outline-none transition-colors text-gray-900 font-medium placeholder-gray-400
-                    ${errors.telefon 
-                      ? 'border-red-500 bg-red-50 focus:border-red-500' 
+                    ${errors.telefon
+                      ? 'border-red-500 bg-red-50 focus:border-red-500'
                       : 'border-gray-100 focus:bg-white focus:border-[#6A0572]'}
                   `}
                   placeholder="05XX..."
                 />
-                 {errors.telefon && (
+                {errors.telefon && (
                   <p className="mt-1 text-xs text-red-500 font-semibold animate-pulse">⚠️ {errors.telefon}</p>
                 )}
               </div>
-              
+
               <div className={`transition-all duration-300 ${aktifAlan === 'email' ? 'scale-[1.01]' : ''}`}>
                 <label className="block text-xs font-bold text-gray-500 uppercase mb-1">E-Posta</label>
                 <input
@@ -253,8 +253,8 @@ export default function OdemeSayfasi() {
                   value={formData.email}
                   onChange={handleChange}
                   className={`w-full px-4 py-4 bg-gray-50 border-2 rounded-xl outline-none transition-colors text-gray-900 font-medium placeholder-gray-400
-                    ${errors.email 
-                      ? 'border-red-500 bg-red-50 focus:border-red-500' 
+                    ${errors.email
+                      ? 'border-red-500 bg-red-50 focus:border-red-500'
                       : 'border-gray-100 focus:bg-white focus:border-[#6A0572]'}
                   `}
                   placeholder="isim@mail.com"
@@ -267,13 +267,13 @@ export default function OdemeSayfasi() {
 
             <div className="relative">
               <div className={`relative overflow-hidden bg-gradient-to-r p-6 rounded-2xl text-white shadow-xl transition-all duration-300 
-                ${errors.tutar 
-                  ? 'from-red-600 to-red-800 ring-4 ring-red-200' 
+                ${errors.tutar
+                  ? 'from-red-600 to-red-800 ring-4 ring-red-200'
                   : 'from-[#6A0572] to-[#4a0350]'} 
                 ${aktifAlan === 'tutar' && !errors.tutar ? 'scale-[1.02] ring-4 ring-[#6A0572]/20' : ''}`}>
-                
+
                 <div className="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-white opacity-10 rounded-full blur-xl"></div>
-                
+
                 <div className="relative z-10 flex justify-between items-center">
                   <div className="w-full">
                     <p className="text-white/80 text-xs font-bold uppercase tracking-wider mb-1">Ödenecek Tutar</p>
@@ -307,7 +307,7 @@ export default function OdemeSayfasi() {
                 </div>
               </div>
               {errors.tutar && (
-                  <p className="mt-2 text-xs text-red-500 font-semibold text-center animate-pulse">⚠️ {errors.tutar}</p>
+                <p className="mt-2 text-xs text-red-500 font-semibold text-center animate-pulse">⚠️ {errors.tutar}</p>
               )}
             </div>
 
