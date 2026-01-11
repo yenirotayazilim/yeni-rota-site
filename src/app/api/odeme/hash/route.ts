@@ -21,8 +21,9 @@ export async function POST(request: NextRequest) {
     // Genelde ver3 için düz birleştirme kullanılır.
     // ------------------------------------------------------------------
 
-    
-    const hashString = clientId + " " + oid + " " + tutar + " " + okUrl + " " + failUrl + " " + islemtipi + " " + taksit + " " + rnd + "||||" + currency + " " + storeKey;
+
+    // route.ts içinde bu satırı deneyin:
+    const hashString = clientId + oid + tutar + okUrl + failUrl + rnd + storeKey;
 
     // SHA-512 kullanımı dökümanda önerilmektedir[cite: 422].
     const hash = crypto
