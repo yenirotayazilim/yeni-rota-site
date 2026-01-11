@@ -71,8 +71,15 @@ export default function OdemeSayfasi() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!validateForm()) return
-
+    
+    console.log("🎯 Form submit başladı");
+    
+    if (!validateForm()) {
+      console.log("❌ Form validasyonu başarısız");
+      return;
+    }
+    
+    console.log("✅ Form validasyonu başarılı");
     setYukleniyor(true)
     
     // Sipariş numarası ve random değer
@@ -84,6 +91,8 @@ export default function OdemeSayfasi() {
     const callbackUrl = `${baseUrl}/api/odeme/callback`
 
     try {
+      console.log("📤 Hash API'ye istek gönderiliyor...");
+      
       // Hash hesaplama endpoint'ini çağır
       const response = await fetch("/api/odeme/hash", {
         method: "POST",
@@ -97,10 +106,21 @@ export default function OdemeSayfasi() {
         })
       })
 
+      console.log("📥 API yanıtı alındı, status:", response.status);
+      
       const data = await response.json()
+      
+      console.log("📦 Yanıt data:", data);
+
+      // Debug için callback URL'leri logla
+      console.log("🔗 Callback URL:", callbackUrl);
+      console.log("✅ Hash alındı:", data.hash ? "Evet" : "Hayır");
 
       if (data.hash) {
+        console.log("🔐 Hash:", data.hash.substring(0, 30) + "...");
+        
         // Bankaya gönderilecek form
+        console.log("📋 Form oluşturuluyor...");
         const form = document.createElement("form")
         form.method = "POST"
         form.action = "https://sanalpos2.ziraatbank.com.tr/fim/est3dgate"
@@ -135,14 +155,26 @@ export default function OdemeSayfasi() {
           form.appendChild(input)
         })
 
+        // Debug: Form parametrelerini logla
+        console.log("📋 Gönderilen Form Parametreleri:", fields);
+        console.log("🔗 Action URL:", form.action);
+        console.log("📊 Input sayısı:", form.querySelectorAll('input').length);
+
         document.body.appendChild(form)
+        console.log("✅ Form DOM'a eklendi");
+        console.log("🚀 Form submit ediliyor...");
+        
+        // Form submit
         form.submit()
+        
+        console.log("✅ Form submit edildi (banka sayfasına yönlendirme bekleniyor...)");
       } else {
+        console.error("❌ Hash bulunamadı:", data);
         alert("Hash hesaplama hatası: " + (data.error || "Bilinmeyen hata"))
         setYukleniyor(false)
       }
     } catch (error) {
-      console.error("Hata:", error)
+      console.error("❌ Hata:", error)
       alert("Bağlantı hatası. Lütfen tekrar deneyin.")
       setYukleniyor(false)
     }
@@ -324,6 +356,7 @@ export default function OdemeSayfasi() {
             <button
               type="submit"
               disabled={yukleniyor}
+              onClick={() => console.log("🖱️ Butona tıklandı, yukleniyor:", yukleniyor)}
               className="w-full py-5 bg-gray-900 hover:bg-black text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
             >
               {yukleniyor ? (
