@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react" // useEffect kaldırıldı
+import { useState } from "react"
 import Link from "next/link"
 
 export default function OdemeSayfasi() {
@@ -74,10 +74,17 @@ export default function OdemeSayfasi() {
     if (!validateForm()) return
 
     setYukleniyor(true)
+    
+    // Sipariş numarası ve random değer
     const oid = "ROTA-" + Date.now()
-    const rnd = Math.random().toString(36).substring(2, 15)
+    const rnd = Date.now().toString()
+    
+    // Dinamik base URL - hem local hem production için çalışır
+    const baseUrl = window.location.origin
+    const callbackUrl = `${baseUrl}/api/odeme/callback`
 
     try {
+      // Hash hesaplama endpoint'ini çağır
       const response = await fetch("/api/odeme/hash", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,21 +92,20 @@ export default function OdemeSayfasi() {
           oid,
           tutar: parseFloat(formData.tutar).toFixed(2),
           rnd,
-          okUrl: "https://yenirotaegitim.com/odeme/basarili",
-          failUrl: "https://yenirotaegitim.com/odeme/basarisiz",
-          adSoyad: formData.adSoyad,
-          email: formData.email,
-          telefon: formData.telefon
+          okUrl: callbackUrl,
+          failUrl: callbackUrl
         })
       })
 
       const data = await response.json()
 
       if (data.hash) {
+        // Bankaya gönderilecek form
         const form = document.createElement("form")
         form.method = "POST"
         form.action = "https://sanalpos2.ziraatbank.com.tr/fim/est3dgate"
 
+        // PDF'deki zorunlu parametreler - Sayfa 22-23
         const fields = {
           clientid: "192474689",
           storetype: "3d_pay_hosting",
@@ -109,16 +115,18 @@ export default function OdemeSayfasi() {
           amount: parseFloat(formData.tutar).toFixed(2),
           currency: "949",
           oid: oid,
-          okUrl: "https://www.yenirotaegitim.com/api/odeme/callback",
-          failUrl: "https://www.yenirotaegitim.com/api/odeme/callback",
+          okUrl: callbackUrl,
+          failUrl: callbackUrl,
           lang: "tr",
           rnd: rnd,
           encoding: "utf-8",
-          Email: formData.email, // Dokümandaki büyük 'E' harfine dikkat
+          // İsteğe bağlı parametreler
+          Email: formData.email,
           tel: formData.telefon,
-          Faturafirma: formData.adSoyad,
-        };
+          Faturafirma: formData.adSoyad
+        }
 
+        // Formu oluştur ve gönder
         Object.entries(fields).forEach(([key, value]) => {
           const input = document.createElement("input")
           input.type = "hidden"
@@ -130,17 +138,19 @@ export default function OdemeSayfasi() {
         document.body.appendChild(form)
         form.submit()
       } else {
-        alert("Bağlantı hatası. Lütfen tekrar deneyin.")
+        alert("Hash hesaplama hatası: " + (data.error || "Bilinmeyen hata"))
         setYukleniyor(false)
       }
     } catch (error) {
       console.error("Hata:", error)
+      alert("Bağlantı hatası. Lütfen tekrar deneyin.")
       setYukleniyor(false)
     }
   }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row font-sans selection:bg-[#6A0572] selection:text-white">
+      {/* Sol Panel */}
       <div className="lg:w-5/12 bg-[#1a0b2e] relative overflow-hidden flex flex-col justify-between p-8 lg:p-12 text-white">
         <div className="absolute inset-0 opacity-20 pointer-events-none">
           <svg className="w-full h-full" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
@@ -185,13 +195,13 @@ export default function OdemeSayfasi() {
             </div>
             <div>
               <p className="text-sm font-bold text-white">1000+ Öğrenci</p>
-              {/* BURASI DÜZELTİLDİ: */}
               <p className="text-xs text-gray-400">Rota Eğitim&apos;i tercih etti.</p>
             </div>
           </div>
         </div>
       </div>
 
+      {/* Sağ Panel - Form */}
       <div className="lg:w-7/12 bg-white flex items-center justify-center p-6 lg:p-12">
         <div className="w-full max-w-lg">
           <div className="mb-8">
@@ -214,7 +224,7 @@ export default function OdemeSayfasi() {
                     ? 'border-red-500 bg-red-50 focus:border-red-500'
                     : 'border-gray-100 focus:bg-white focus:border-[#6A0572]'}
                 `}
-                placeholder="Örn: Mehmet..."
+                placeholder="Örn: Mehmet Yılmaz"
               />
               {errors.adSoyad && (
                 <p className="mt-1 text-xs text-red-500 font-semibold animate-pulse">⚠️ {errors.adSoyad}</p>
@@ -236,7 +246,7 @@ export default function OdemeSayfasi() {
                       ? 'border-red-500 bg-red-50 focus:border-red-500'
                       : 'border-gray-100 focus:bg-white focus:border-[#6A0572]'}
                   `}
-                  placeholder="05XX..."
+                  placeholder="05XX XXX XX XX"
                 />
                 {errors.telefon && (
                   <p className="mt-1 text-xs text-red-500 font-semibold animate-pulse">⚠️ {errors.telefon}</p>
