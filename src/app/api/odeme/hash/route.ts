@@ -4,28 +4,24 @@ import crypto from "crypto";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
-    // Frontend'den gelen veriler
     const { oid, tutar, rnd, okUrl, failUrl } = body;
 
-    const clientId = process.env.ZIRAAT_CLIENT_ID || "";
-    const storeKey = process.env.ZIRAAT_STORE_KEY || "";
-    const islemtipi = "Auth"; // [cite: 91]
-    const currency = "949";   // TL kodu [cite: 93]
-    const taksit = "";        // Taksit yoksa boş [cite: 168]
+    const clientId = process.env.ZIRAAT_CLIENT_ID || ""; 
+    const storeKey = process.env.ZIRAAT_STORE_KEY || ""; 
+    
+    // Değişkenleri tanımlıyoruz [cite: 91, 93, 168]
+    const islemtipi = "Auth"; 
+    const currency = "949";   
+    const taksit = "";        
 
     // ------------------------------------------------------------------
-    // DÜZELTME: PDF Sayfa 16'daki SHA512 algoritma dizilimi 
-    // ÖNEMLİ: Parametreler arasında boşluk veya özel karakter gerekip gerekmediği 
-    // banka yönetim panelindeki "Hash Versiyonu" ayarına bağlıdır. 
-    // Genelde ver3 için düz birleştirme kullanılır.
+    // DÜZELTME: PDF Sayfa 16 ve 22'ye göre TAM HASH ZİNCİRİ
+    // Sıralama: clientId + oid + tutar + okUrl + failUrl + islemtipi + taksit + rnd + currency + storeKey
     // ------------------------------------------------------------------
+    
+    const hashString = clientId + oid + tutar + okUrl + failUrl + islemtipi + taksit + rnd + currency + storeKey;
 
-
-    // route.ts içinde bu satırı deneyin:
-    const hashString = clientId + oid + tutar + okUrl + failUrl + rnd + storeKey;
-
-    // SHA-512 kullanımı dökümanda önerilmektedir[cite: 422].
+    // SHA-512 algoritması ile hash oluşturma 
     const hash = crypto
       .createHash("sha512")
       .update(hashString, "utf-8")
