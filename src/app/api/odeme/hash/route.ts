@@ -7,18 +7,18 @@ export async function POST(request: NextRequest) {
     const { oid, tutar, rnd, okUrl, failUrl } = body;
 
     // .env dosyasından alınacak değerler
-    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689"; 
-    const storeKey = process.env.ZIRAAT_STORE_KEY || ""; 
-    
+    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689";
+    const storeKey = process.env.ZIRAAT_STORE_KEY || "";
+
     // Sabit değerler
-    const islemtipi = "Auth"; 
-    const taksit = "";        
-    const currency = "949";   
+    const islemtipi = "Auth";
+    const taksit = "";
+    const currency = "949";
 
     // ============================================================
     // VER3 HASH ALGORITMASI - PDF Sayfa 16'ya göre
     // ============================================================
-    
+
     // 1. Tüm değerleri escape et (\ ve | karakterleri için)
     const escapeValue = (val: string) => {
       return val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
@@ -37,17 +37,16 @@ export async function POST(request: NextRequest) {
 
     // 2. Hash string'i oluştur (PDF'deki sıraya göre - Sayfa 16, VB örneği)
     // clientId|oid|amount|okUrl|failUrl|islemtipi|taksit|rnd|||||currency|storeKey
-    const hashString = 
-      escapedClientId + "|" + 
-      escapedOid + "|" + 
-      escapedAmount + "|" + 
-      escapedOkUrl + "|" + 
-      escapedFailUrl + "|" + 
-      escapedIslemtipi + "|" + 
-      escapedTaksit + "|" + 
-      escapedRnd + "|" + 
-      "|||" + // 3 boş pipe (döküman gereği)
-      escapedCurrency + "|" + 
+    const hashString =
+      escapedClientId + "|" +
+      escapedOid + "|" +
+      escapedAmount + "|" +
+      escapedOkUrl + "|" +
+      escapedFailUrl + "|" +
+      escapedIslemtipi + "|" +
+      escapedTaksit + "|" +
+      escapedRnd + "||||" + // DİKKAT: Burada tam 4 adet pipe var!
+      escapedCurrency + "|" +
       escapedStoreKey;
 
     console.log("Hash String:", hashString); // Debug için
@@ -65,7 +64,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error("Hash hesaplama hatası:", error);
     return NextResponse.json(
-      { error: "Hash hesaplanamadı", details: String(error) }, 
+      { error: "Hash hesaplanamadı", details: String(error) },
       { status: 500 }
     );
   }
