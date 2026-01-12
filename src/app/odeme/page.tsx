@@ -71,31 +71,31 @@ export default function OdemeSayfasi() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     console.log("🎯 Form submit başladı");
-    
+
     if (!validateForm()) {
       console.log("❌ Form validasyonu başarısız");
       return;
     }
-    
+
     console.log("✅ Form validasyonu başarılı");
     setYukleniyor(true)
-    
+
     // Sipariş numarası ve random değer
     const oid = "ROTA-" + Date.now()
     const rnd = Date.now().toString()
-    
+
     // Dinamik base URL - hem local hem production için çalışır
     const baseUrl = window.location.origin
     const callbackUrl = `${baseUrl}/api/odeme/callback`
-    
+
     console.log("🌐 Base URL:", baseUrl);
     console.log("🔗 Callback URL:", callbackUrl);
 
     try {
       console.log("📤 Hash API'ye istek gönderiliyor...");
-      
+
       // Hash hesaplama endpoint'ini çağır
       const response = await fetch("/api/odeme/hash", {
         method: "POST",
@@ -110,9 +110,9 @@ export default function OdemeSayfasi() {
       })
 
       console.log("📥 API yanıtı alındı, status:", response.status);
-      
+
       const data = await response.json()
-      
+
       console.log("📦 Yanıt data:", data);
 
       // Debug için callback URL'leri logla
@@ -121,7 +121,7 @@ export default function OdemeSayfasi() {
 
       if (data.hash) {
         console.log("🔐 Hash:", data.hash.substring(0, 30) + "...");
-        
+
         // Bankaya gönderilecek form
         console.log("📋 Form oluşturuluyor...");
         const form = document.createElement("form")
@@ -166,10 +166,11 @@ export default function OdemeSayfasi() {
         document.body.appendChild(form)
         console.log("✅ Form DOM'a eklendi");
         console.log("🚀 Form submit ediliyor...");
-        
+        console.log("🚨 KRİTİK KONTROL - OID DEĞERİ:", fields.oid); // Bunu mutlaka ekle
+        console.log("🚨 KRİTİK KONTROL - RND DEĞERİ:", fields.rnd);
         // Form submit
         form.submit()
-        
+
         console.log("✅ Form submit edildi (banka sayfasına yönlendirme bekleniyor...)");
       } else {
         console.error("❌ Hash bulunamadı:", data);
