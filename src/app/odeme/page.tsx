@@ -11,12 +11,12 @@ export default function OdemeSayfasi() {
     
     setYukleniyor(true);
     
-    // Eksik olan sipariş numarası (oid) ve rnd burada oluşturuluyor
+    // Benzersiz sipariş numarası ve rastgele değer üretimi
     const oid = "ROTA-" + Date.now(); 
     const rnd = Math.random().toString(36).substring(2, 10);
     const baseUrl = window.location.origin;
     const callbackUrl = `${baseUrl}/api/odeme/callback`;
-    const formatTutar = parseFloat(formData.tutar).toFixed(2);
+    const formatTutar = parseFloat(formData.tutar).toFixed(2); // Kuruş hanesi zorunluluğu
 
     try {
       const response = await fetch("/api/odeme/hash", {
@@ -32,14 +32,15 @@ export default function OdemeSayfasi() {
         form.method = "POST";
         form.action = "https://sanalpos2.ziraatbank.com.tr/fim/est3dgate";
 
-        const fields: any = {
+        // Tip güvenliği sağlandı (any hatası giderildi)
+        const fields: Record<string, string> = {
           clientid: "192474689",
           storetype: "3d_pay_hosting",
           hash: data.hash,
           hashAlgorithm: "ver3",
-          islemtipi: "Auth",
+          islemtipi: "Auth", //
           amount: formatTutar,
-          currency: "949",
+          currency: "949", // TL kodu
           oid: oid,
           okUrl: callbackUrl,
           failUrl: callbackUrl,
@@ -55,15 +56,16 @@ export default function OdemeSayfasi() {
           const input = document.createElement("input");
           input.type = "hidden";
           input.name = key;
-          input.value = value as string;
+          input.value = value;
           form.appendChild(input);
         });
 
         document.body.appendChild(form);
         form.submit();
       }
-    } catch (error) {
-      alert("Hata oluştu");
+    } catch (err) {
+      console.error("Ödeme başlatma hatası:", err); // error değişkeni kullanıldı
+      alert("Hata oluştu. Lütfen tekrar deneyin.");
       setYukleniyor(false);
     }
   };
