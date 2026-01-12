@@ -6,66 +6,36 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { oid, tutar, rnd, okUrl, failUrl } = body;
 
-    // .env dosyasından alınacak değerler
-    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689";
-    const storeKey = process.env.ZIRAAT_STORE_KEY || "";
-
-    // Sabit değerler
-    const islemtipi = "Auth";
-    const taksit = "";
+    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689"; 
+    const storeKey = process.env.ZIRAAT_STORE_KEY || ""; 
+    const islemtipi = "Auth"; 
     const currency = "949";
+    const taksit = "";
 
-    // ============================================================
-    // VER3 HASH ALGORITMASI - PDF Sayfa 16'ya göre
-    // ============================================================
+    const escapeValue = (val: string) => val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
 
-    // 1. Tüm değerleri escape et (\ ve | karakterleri için)
-    const escapeValue = (val: string) => {
-      return val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
-    };
-
-    const escapedClientId = escapeValue(clientId);
-    const escapedOid = escapeValue(oid);
-    const escapedAmount = escapeValue(tutar);
-    const escapedOkUrl = escapeValue(okUrl);
-    const escapedFailUrl = escapeValue(failUrl);
-    const escapedIslemtipi = escapeValue(islemtipi);
-    const escapedTaksit = escapeValue(taksit);
-    const escapedRnd = escapeValue(rnd);
-    const escapedCurrency = escapeValue(currency);
-    const escapedStoreKey = escapeValue(storeKey);
-
-    // 2. Hash string'i oluştur (PDF'deki sıraya göre - Sayfa 16, VB örneği)
+    // DÜZELTME: Ver3 SHA-512 Sıralaması (Sayfa 16)
     // clientId|oid|amount|okUrl|failUrl|islemtipi|taksit|rnd|||||currency|storeKey
-    const hashString =
-      escapedClientId + "|" +
-      escapedOid + "|" +
-      escapedAmount + "|" +
-      escapedOkUrl + "|" +
-      escapedFailUrl + "|" +
-      escapedIslemtipi + "|" +
-      escapedTaksit + "|" +
-      escapedRnd + "||||" + // DİKKAT: Burada tam 4 adet pipe var!
-      escapedCurrency + "|" +
-      escapedStoreKey;
+    // rnd'den sonra tam 5 pipe (|||||) zorunludur!
+    const hashString = 
+      escapeValue(clientId) + "|" + 
+      escapeValue(oid) + "|" + 
+      escapeValue(tutar) + "|" + 
+      escapeValue(okUrl) + "|" + 
+      escapeValue(failUrl) + "|" + 
+      escapeValue(islemtipi) + "|" + 
+      escapeValue(taksit) + "|" + 
+      escapeValue(rnd) + "|||||" + 
+      escapeValue(currency) + "|" + 
+      escapeValue(storeKey);
 
-    console.log("Hash String:", hashString); // Debug için
-
-    // 3. SHA-512 ile hash hesapla
     const hash = crypto
       .createHash("sha512")
       .update(hashString, "utf8")
       .digest("base64");
 
-    console.log("Calculated Hash:", hash); // Debug için
-
     return NextResponse.json({ hash });
-
   } catch (error) {
-    console.error("Hash hesaplama hatası:", error);
-    return NextResponse.json(
-      { error: "Hash hesaplanamadı", details: String(error) },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Hash hatası", details: String(error) }, { status: 500 });
   }
 }
