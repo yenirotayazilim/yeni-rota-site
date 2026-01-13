@@ -1,23 +1,38 @@
 import crypto from 'crypto';
 
-export function generateZiraatHash(params: any, storeKey: string) {
+// 1. Tip tanımını yapıyoruz
+interface ZiraatPaymentParams {
+  amount: string;
+  clientId: string;
+  failUrl: string;
+  hashAlgorithm: string;
+  inst: string;
+  okUrl: string;
+  oid: string;
+  rnd: string;
+  storetype: string;
+  trantype: string;
+  [key: string]: string; // Diğer string anahtarlara izin ver
+}
+
+export function generateZiraatHash(params: ZiraatPaymentParams, storeKey: string): string {
+  // Ziraat'in beklediği alfabetik ve özel sıralama:
   // 1. Kural: Amount en başta olmalı.
   // 2. Kural: Parametreler A'dan Z'ye sıralanmalı.
-  // 3. Kural: Storekey en sonda olmalı.
+  // 3. Kural: Storekey her zaman en sonda yer almalı.
 
-  // Alfabetik sıraya göre dizilmiş değerler dizisi
   const hashString = 
-    params.amount +          // Amount başta (Örn: 10.50)
-    params.clientId +        // Alfabetik devam ediyor
+    params.amount +             // Amount en başta
+    params.clientId +           // A'dan Z'ye sıralama devam ediyor
     params.failUrl + 
-    params.hashAlgorithm +   // Değer: "ver3"
-    params.inst +            // Taksit yoksa boş string
+    params.hashAlgorithm +      // "ver3"
+    params.inst +               // Taksit yoksa boş string
     params.okUrl + 
     params.oid + 
     params.rnd + 
     params.storetype + 
     params.trantype + 
-    storeKey;                // Storekey sonda
+    storeKey;                   // Storekey en sonda
 
   return crypto
     .createHash('sha512')
