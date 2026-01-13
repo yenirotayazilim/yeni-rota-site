@@ -8,7 +8,7 @@ export async function POST(req: Request) {
 
   const paymentParams = {
     amount: body.amount, 
-    clientId: "123456", // Size verilen ID
+    clientId: "192474689", // Size verilen ID
     failUrl: "http://localhost:3000/api/odeme/callback",
     hashAlgorithm: "ver3",
     inst: "", // Taksit yoksa boş bırakılır
