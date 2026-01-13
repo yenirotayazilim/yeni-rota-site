@@ -18,15 +18,16 @@ export async function POST(request: NextRequest) {
     // clientId|oid|amount|okUrl|failUrl|islemtipi|taksit|rnd|||||currency|storeKey
     // rnd'den sonra tam 5 pipe (|||||) zorunludur!
     const hashString = 
-      escapeValue(clientId) + "|" + 
-      escapeValue(oid) + "|" + 
-      escapeValue(tutar) + "|" + 
-      escapeValue(okUrl) + "|" + 
-      escapeValue(failUrl) + "|" + 
-      escapeValue(islemtipi) + "|" + 
-      escapeValue(taksit) + "|" + 
-      escapeValue(rnd) + "|||||" + 
-      escapeValue(currency) + "|" + 
+      escapeValue(tutar) + "|" +          // AMOUNT
+      escapeValue(clientId) + "|" +       // CLIENT_ID
+      escapeValue(oid) + "|" +            // OID
+      escapeValue(okUrl) + "|" +          // OK_URL
+      escapeValue(failUrl) + "|" +        // FAIL_URL
+      escapeValue(islemtipi) + "|" +      // ISLEM_TIPI
+      escapeValue(taksit) + "|" +         // TAKSIT
+      escapeValue(rnd) + "|" +            // RND
+      "|||" +                             // Three empty pipes (as you specified)
+      escapeValue(currency) + "|" +       // CURRENCY
       escapeValue(storeKey);
 
     const hash = crypto
