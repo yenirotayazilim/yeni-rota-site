@@ -1,41 +1,33 @@
 import crypto from 'crypto';
 
-// 1. Tip tanımını yapıyoruz
 interface ZiraatPaymentParams {
   amount: string;
-  clientId: string;
+  clientid: string;
+  currency: string;
   failUrl: string;
-  hashAlgorithm: string;
-  inst: string;
-  okUrl: string;
+  hashalgorithm: string;
+  islemtipi: string;
+  lang: string;
   oid: string;
-  rnd: string;
+  okUrl: string;
   storetype: string;
-  trantype: string;
-  [key: string]: string; // Diğer string anahtarlara izin ver
+  [key: string]: string;
 }
 
 export function generateZiraatHash(params: ZiraatPaymentParams, storeKey: string): string {
-  // Ziraat'in beklediği alfabetik ve özel sıralama:
-  // 1. Kural: Amount en başta olmalı.
-  // 2. Kural: Parametreler A'dan Z'ye sıralanmalı.
-  // 3. Kural: Storekey her zaman en sonda yer almalı.
-
+  // Sıralama: Amount + Diğerleri (A-Z) + StoreKey
   const hashString = 
-    params.amount +             // Amount en başta
-    params.clientId +           // A'dan Z'ye sıralama devam ediyor
+    params.amount +          // 1. Amount Başta
+    params.clientid +        // 2. Alfabetik Sıra
+    params.currency + 
     params.failUrl + 
-    params.hashAlgorithm +      // "ver3"
-    params.inst +               // Taksit yoksa boş string
-    params.okUrl + 
+    params.hashalgorithm + 
+    params.islemtipi + 
+    params.lang + 
     params.oid + 
-    params.rnd + 
+    params.okUrl + 
     params.storetype + 
-    params.trantype + 
-    storeKey;                   // Storekey en sonda
+    storeKey;                // 3. StoreKey Sonda
 
-  return crypto
-    .createHash('sha512')
-    .update(hashString)
-    .digest('base64');
+  return crypto.createHash('sha512').update(hashString).digest('base64');
 }

@@ -1,22 +1,22 @@
 "use client";
-import { useState } from "react";
 
 export default function OdemePage() {
-  const [loading, setLoading] = useState(false);
-
   const handlePay = async () => {
-    setLoading(true);
-    // 1. Kendi API'mizden hashli verileri al
     const res = await fetch("/api/odeme", {
       method: "POST",
-      body: JSON.stringify({ amount: "100.00" }),
+      body: JSON.stringify({ amount: "10.50" }), // Test tutarı
     });
     const data = await res.json();
 
-    // 2. Gizli bir form oluşturup bankaya POST et
     const form = document.createElement("form");
     form.method = "POST";
-    form.action = "https://entegrasyon.ziraatbank.com.tr/fim/est3Dgate"; // Test URL
+    
+    /** * DNS HATASININ ÇÖZÜMÜ:
+     * [host_name] yerine Ziraat/Nestpay'in gerçek adresi yazılmalı.
+     * Test için: https://entegrasyon.asseco-see.com.tr/fim/est3Dgate
+     * Canlı için: https://sanalpos2.ziraatbank.com.tr/fim/est3Dgate
+     */
+    form.action = "https://sanalpos2.ziraatbank.com.tr/fim/est3Dgate";
 
     Object.keys(data).forEach((key) => {
       const input = document.createElement("input");
@@ -31,14 +31,13 @@ export default function OdemePage() {
   };
 
   return (
-    <div className="p-10">
-      <h1 className="text-xl font-bold">Ödeme Sayfası</h1>
+    <div className="flex flex-col items-center p-10">
+      <h1 className="text-xl font-bold mb-4">Ödeme İşlemi</h1>
       <button 
-        onClick={handlePay}
-        className="bg-red-600 text-white p-3 rounded"
-        disabled={loading}
+        onClick={handlePay} 
+        className="px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
       >
-        {loading ? "Yönlendiriliyor..." : "Ziraat ile Öde"}
+        Güvenli Ödeme Sayfasına Git
       </button>
     </div>
   );

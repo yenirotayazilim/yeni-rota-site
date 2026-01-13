@@ -2,29 +2,42 @@ import { NextResponse } from 'next/server';
 import { generateZiraatHash } from '@/lib/payment';
 
 export async function POST(req: Request) {
-  const body = await req.json();
-  const storeKey = process.env.ZIRAAT_STORE_KEY; // .env.local'den al
-  const rnd = Date.now().toString();
+  try {
+    const body = await req.json();
+    
+    // Vercel veya .env.local'den çekilen değerler
+    const storeKey = process.env.ZIRAAT_STORE_KEY;
+    const clientId = process.env.ZIRAAT_CLIENT_ID;
+    
+    if (!storeKey || !clientId) {
+      console.error("HATA: Banka anahtarları eksik!");
+      return NextResponse.json({ error: "Sistem yapılandırması hatalı" }, { status: 500 });
+    }
 
-  const paymentParams = {
-    amount: body.amount, 
-    clientId: "192474689", // Size verilen ID
-    failUrl: "http://localhost:3000/api/odeme/callback",
-    hashAlgorithm: "ver3",
-    inst: "", // Taksit yoksa boş bırakılır
-    okUrl: "http://localhost:3000/api/odeme/callback",
-    oid: `SIP-${Date.now()}`,
-    rnd: rnd,
-    storetype: "3d_pay",
-    trantype: "Auth",
-  };
+    const baseUrl = "https://www.yenirotaegitim.com";
 
-  const hash = generateZiraatHash(paymentParams, storeKey!);
+    const paymentParams = {
+      amount: body.amount,
+      clientid: clientId,      // Çevre değişkeninden geldi
+      currency: "949",
+      failUrl: `${baseUrl}/api/odeme/callback`,
+      hashalgorithm: "ver3",   //
+      islemtipi: "Auth",       //
+      lang: "tr",
+      oid: `SIP-${Date.now()}`,
+      okUrl: `${baseUrl}/api/odeme/callback`,
+      storetype: "3d_pay_hosting", //
+    };
 
-  // Banka formuna eklenecek ama hash'e girmeyecek değerler
-  return NextResponse.json({ 
-    ...paymentParams, 
-    hash,
-    encoding: "UTF-8" // Hash'e dahil edilmez
-  });
+    const hash = generateZiraatHash(paymentParams, storeKey); // Çevre değişkeninden geldi
+
+    return NextResponse.json({ 
+      ...paymentParams, 
+      hash,
+      encoding: "UTF-8" //
+    });
+  } catch (_error) {
+    console.error("Ödeme API Hatası:", _error);
+    return NextResponse.json({ error: "İşlem başlatılamadı" }, { status: 500 });
+  }
 }
