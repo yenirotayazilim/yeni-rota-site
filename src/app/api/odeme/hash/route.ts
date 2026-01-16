@@ -7,7 +7,7 @@ export async function POST(request: NextRequest) {
     const { oid, tutar, rnd, okUrl, failUrl } = body;
 
     // .env dosyasından alınacak değerler
-    const clientId = process.env.ZIRAAT_CLIENT_ID || ""; 
+    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689"; 
     const storeKey = process.env.ZIRAAT_STORE_KEY || "";
     
     // CORS header'ları ekle
