@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
       303
     );
 
-  } catch (error) {
+  } catch (_) {
     // Sadece generic log – detay yok
     console.error("Ödeme callback işleme hatası");
 

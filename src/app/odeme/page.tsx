@@ -19,7 +19,7 @@ export default function OdemeSayfasi() {
   })
 
   const [yukleniyor, setYukleniyor] = useState(false)
-  const [aktifAlan, setAktifAlan] = useState("")
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -142,7 +142,7 @@ export default function OdemeSayfasi() {
         alert("Hash hesaplama hatası: " + (data.error || "Bilinmeyen hata"))
         setYukleniyor(false)
       }
-    } catch (error) {
+    } catch (_) {
       alert("Bağlantı hatası. Lütfen tekrar deneyin.")
       setYukleniyor(false)
     }
