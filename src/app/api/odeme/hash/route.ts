@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ hash });
 
-  } catch (_) {
+  } catch  {
     console.error("Hash hesaplama işlemi başarısız");
 
     return NextResponse.json(

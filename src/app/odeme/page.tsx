@@ -142,7 +142,7 @@ export default function OdemeSayfasi() {
         alert("Hash hesaplama hatası: " + (data.error || "Bilinmeyen hata"))
         setYukleniyor(false)
       }
-    } catch (_) {
+    } catch {
       alert("Bağlantı hatası. Lütfen tekrar deneyin.")
       setYukleniyor(false)
     }
