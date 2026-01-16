@@ -95,6 +95,12 @@ export default function OdemeSayfasi() {
 
     try {
       console.log("📤 Hash API'ye istek gönderiliyor...");
+      console.log("📊 Form verileri:", {
+        adSoyad: formData.adSoyad,
+        email: formData.email,
+        telefon: formData.telefon,
+        tutar: formData.tutar
+      });
       
       // Hash hesaplama endpoint'ini çağır
       const response = await fetch("/api/odeme/hash", {
