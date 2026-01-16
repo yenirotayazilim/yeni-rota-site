@@ -2,6 +2,8 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import Image from "next/image"
+
 
 export default function OdemeSayfasi() {
   const [formData, setFormData] = useState({
@@ -72,14 +74,14 @@ export default function OdemeSayfasi() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    
+
 
     if (!validateForm()) {
-      
+
       return;
     }
 
-    
+
     setYukleniyor(true)
 
     // Sipariş numarası ve random değer
@@ -90,10 +92,10 @@ export default function OdemeSayfasi() {
     const baseUrl = window.location.origin
     const callbackUrl = `${baseUrl}/api/odeme/callback`
 
-   
+
 
     try {
-      
+
 
       // Hash hesaplama endpoint'ini çağır
       const response = await fetch("/api/odeme/hash", {
@@ -111,18 +113,18 @@ export default function OdemeSayfasi() {
         })
       })
 
-      
+
 
       const data = await response.json()
 
-      
-      
+
+
 
       if (data.hash) {
-        
+
 
         // Bankaya gönderilecek form
-        
+
         const form = document.createElement("form")
         form.method = "POST"
         form.action = "https://sanalpos2.ziraatbank.com.tr/fim/est3dgate"
@@ -159,15 +161,15 @@ export default function OdemeSayfasi() {
         })
 
         // Debug: Form parametrelerini logla
-       
+
 
         document.body.appendChild(form)
-        
+
 
         // Form submit
         form.submit()
 
-        
+
       } else {
         console.error("❌ Hash bulunamadı:", data);
         alert("Hash hesaplama hatası: " + (data.error || "Bilinmeyen hata"))
@@ -236,18 +238,65 @@ export default function OdemeSayfasi() {
       {/* Sağ Panel - Form */}
       <div className="lg:w-7/12 bg-white flex items-center justify-center p-6 lg:p-12">
         <div className="w-full max-w-lg">
-          <div className="mb-8">
-            <h3 className="text-2xl font-bold text-gray-900">Ödeme Detayları</h3>
-            <p className="text-gray-500 text-sm">Lütfen bilgilerinizi eksiksiz doldurun.</p>
+          <div className="flex items-center justify-between mb-2">
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900">Ödeme Detayları</h3>
+              <p className="text-gray-500 text-sm">Lütfen bilgilerinizi eksiksiz doldurun.</p>
+            </div>
+
+            {/* Kart Logoları - Next Image Optimize */}
+            <div className="flex items-center gap-3 opacity-90">
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg"
+                alt="Visa"
+                width={48}
+                height={24}
+                className="h-6 w-auto"
+                priority={false}
+              />
+
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                alt="Mastercard"
+                width={48}
+                height={24}
+                className="h-6 w-auto"
+                priority={false}
+              />
+
+              <Image
+                src="https://upload.wikimedia.org/wikipedia/commons/c/c2/Troy-logo-sloganli.png"
+                alt="Troy"
+                width={48}
+                height={24}
+                className="h-6 w-auto"
+                priority={false}
+              />
+            </div>
+
           </div>
 
+
           <form onSubmit={handleSubmit} noValidate className="space-y-6">
+            {/* ===== GÜVEN BİLDİRİM ALANI ===== */}
+            <div className="bg-green-50 border border-green-200 rounded-xl p-4 text-sm text-green-800">
+              <div className="font-semibold mb-2 flex items-center gap-2">
+                🔒 Güvenli Ödeme
+              </div>
+              <ul className="space-y-1 text-xs">
+                <li>• 256-bit SSL ile şifrelenmiş işlem</li>
+                <li>• Ziraat Bankası 3D Secure altyapısı</li>
+                <li>• Kart bilgileriniz sistemimizde saklanmaz</li>
+                <li>• Ödeme bankanın güvenli sayfasında gerçekleşir</li>
+              </ul>
+            </div>
+
             <div className={`transition-all duration-300 ${aktifAlan === 'adSoyad' ? 'scale-[1.01]' : ''}`}>
-              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Kart Sahibi / Ad Soyad</label>
+              <label className="block text-xs font-bold text-gray-500 uppercase mb-1">Ad Soyad</label>
               <input
                 type="text"
                 name="adSoyad"
-                
+
                 value={formData.adSoyad}
                 onChange={handleChange}
                 className={`w-full px-4 py-4 bg-gray-50 border-2 rounded-xl outline-none transition-colors text-gray-900 font-medium placeholder-gray-400
@@ -355,7 +404,7 @@ export default function OdemeSayfasi() {
             <button
               type="submit"
               disabled={yukleniyor}
-              
+
               className="w-full py-5 bg-gray-900 hover:bg-black text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed group"
             >
               {yukleniyor ? (
@@ -372,6 +421,12 @@ export default function OdemeSayfasi() {
                 </>
               )}
             </button>
+
+
+            <div className="bg-blue-50 border border-blue-100 p-3 rounded-lg text-xs text-blue-800">
+              Bu ödeme sayfası doğrudan Ziraat Bankası altyapısına yönlendirir.
+              Kart bilgileriniz tarafımızdan görülmez ve saklanmaz.
+            </div>
           </form>
         </div>
       </div>
