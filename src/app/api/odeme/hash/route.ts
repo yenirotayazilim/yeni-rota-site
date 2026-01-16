@@ -4,83 +4,64 @@ import crypto from "crypto";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { oid, tutar, rnd, okUrl, failUrl } = body;
 
-    // .env dosyasından alınacak değerler
-    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689"; 
-    const storeKey = process.env.ZIRAAT_STORE_KEY || "";
-    
-    // CORS header'ları ekle
-    const headers = {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    };
-    
-    // Env variables kontrolü
-    if (!storeKey || storeKey === "") {
-      console.error("❌ ZIRAAT_STORE_KEY bulunamadı!");
-      return NextResponse.json(
-        { error: "Store key yapılandırılmamış" }, 
-        { status: 500, headers }
-      );
-    } 
-    
-    // Sabit değerler
-    const islemtipi = "Auth"; 
-    const taksit = "";        // Boş olmalı ("1" veya "0" değil!)
-    const currency = "949";   
+    const {
+      oid,
+      tutar,
+      rnd,
+      okUrl,
+      failUrl,
+      email,
+      adSoyad,
+      telefon
+    } = body;
 
-    // ============================================================
-    // VER3 HASH ALGORITMASI - ALFABETİK SIRALAMA (A-Z)
-    // ============================================================
-    
-    // 1. Tüm değerleri escape et (\ ve | karakterleri için)
-    const escapeValue = (val: string) => {
-      return val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
-    };
+    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689";
+    const storeKey = process.env.ZIRAAT_STORE_KEY || "YeniRota2026!!*";
 
-    const escapedAmount = escapeValue(tutar);
-    const escapedClientId = escapeValue(clientId);
-    const escapedCurrency = escapeValue(currency);
-    const escapedFailUrl = escapeValue(failUrl);
-    const escapedIslemtipi = escapeValue(islemtipi);
-    const escapedOid = escapeValue(oid);
-    const escapedOkUrl = escapeValue(okUrl);
-    const escapedRnd = escapeValue(rnd);
-    const escapedStoreKey = escapeValue(storeKey);
-    const escapedTaksit = escapeValue(taksit);
+    const escapeValue = (val: string) =>
+      val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
 
-    // 2. Hash string'i oluştur (ALFABETİK SIRALAMA - A'dan Z'ye)
-    // amount|clientid|currency|failUrl|islemtipi|oid|okUrl|rnd|storeKey|taksit
-    const hashString = 
-      escapedAmount + "|" +
-      escapedClientId + "|" + 
-      escapedCurrency + "|" +
-      escapedFailUrl + "|" +
-      escapedIslemtipi + "|" +
-      escapedOid + "|" + 
-      escapedOkUrl + "|" +
-      escapedRnd + "|" +
-      escapedStoreKey + "|" +
-      escapedTaksit;
+    // Sabitler
+    const hashAlgorithm = "ver3";
+    const islemtipi = "Auth";
+    const lang = "tr";
+    const storetype = "3d_pay_hosting";
+    const currency = "949";
 
-    console.log("Hash String:", hashString); // Debug için
+    // BANKANIN İSTEDİĞİ SIRA:
+    const hashString =
+      escapeValue(tutar) + "|" +
+      escapeValue(clientId) + "|" +
+      escapeValue(currency) + "|" +
+      escapeValue(email) + "|" +
+      escapeValue(failUrl) + "|" +
+      escapeValue(adSoyad) + "|" +
+      escapeValue(hashAlgorithm) + "|" +
+      escapeValue(islemtipi) + "|" +
+      escapeValue(lang) + "|" +
+      escapeValue(oid) + "|" +
+      escapeValue(okUrl) + "|" +
+      escapeValue(rnd) + "|" +
+      escapeValue(storetype) + "|" +
+      escapeValue(telefon) + "|" +
+      escapeValue(storeKey);
 
-    // 3. SHA-512 ile hash hesapla
+    console.log("✅ BANK FORMATINDA HASH STRING:");
+    console.log(hashString);
+
     const hash = crypto
       .createHash("sha512")
       .update(hashString, "utf8")
       .digest("base64");
 
-    console.log("Calculated Hash:", hash); // Debug için
+    console.log("✅ CALCULATED HASH:", hash);
 
     return NextResponse.json({ hash });
 
   } catch (error) {
-    console.error("Hash hesaplama hatası:", error);
     return NextResponse.json(
-      { error: "Hash hesaplanamadı", details: String(error) }, 
+      { error: "Hash hesaplanamadı", details: String(error) },
       { status: 500 }
     );
   }
