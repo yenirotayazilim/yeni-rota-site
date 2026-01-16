@@ -16,20 +16,34 @@ export async function POST(request: NextRequest) {
       telefon
     } = body;
 
-    const clientId = process.env.ZIRAAT_CLIENT_ID || "192474689";
-    const storeKey = process.env.ZIRAAT_STORE_KEY || "YeniRota2026!!*";
+    // 🔐 SADECE ENV'DEN AL – FALLBACK YOK
+    const clientId = process.env.ZIRAAT_CLIENT_ID;
+    const storeKey = process.env.ZIRAAT_STORE_KEY;
 
+    if (!clientId || !storeKey) {
+      console.error("❌ Ziraat ENV değişkenleri tanımlı değil!");
+      return NextResponse.json(
+        { error: "Ödeme yapılandırması eksik (ENV)" },
+        { status: 500 }
+      );
+    }
+
+    // Kaçış fonksiyonu (Ziraat zorunlu)
     const escapeValue = (val: string) =>
       val.replace(/\\/g, "\\\\").replace(/\|/g, "\\|");
 
-    // Sabitler
+    // Sabit değerler
     const hashAlgorithm = "ver3";
     const islemtipi = "Auth";
     const lang = "tr";
     const storetype = "3d_pay_hosting";
     const currency = "949";
 
-    // BANKANIN İSTEDİĞİ SIRA:
+    // 📌 ZİRAAT'IN VERDİĞİ ALFABETİK SIRA:
+    // amount|clientid|currency|Email|failUrl|Faturafirma|
+    // hashAlgorithm|islemtipi|lang|oid|okUrl|rnd|
+    // storetype|tel|storekey
+
     const hashString =
       escapeValue(tutar) + "|" +
       escapeValue(clientId) + "|" +
@@ -47,8 +61,10 @@ export async function POST(request: NextRequest) {
       escapeValue(telefon) + "|" +
       escapeValue(storeKey);
 
-    console.log("✅ BANK FORMATINDA HASH STRING:");
+    console.log("====================================");
+    console.log("🔐 HASH STRING:");
     console.log(hashString);
+    console.log("====================================");
 
     const hash = crypto
       .createHash("sha512")
@@ -60,8 +76,13 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ hash });
 
   } catch (error) {
+    console.error("❌ Hash hesaplama hatası:", error);
+
     return NextResponse.json(
-      { error: "Hash hesaplanamadı", details: String(error) },
+      {
+        error: "Hash hesaplanamadı",
+        details: String(error)
+      },
       { status: 500 }
     );
   }
