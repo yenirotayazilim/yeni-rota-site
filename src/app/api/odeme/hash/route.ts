@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     const storeKey = process.env.ZIRAAT_STORE_KEY;
 
     if (!clientId || !storeKey) {
-      console.error("❌ Ziraat ENV değişkenleri tanımlı değil!");
+      console.error("Ziraat ENV değişkenleri tanımlı değil!");
       return NextResponse.json(
         { error: "Ödeme yapılandırması eksik (ENV)" },
         { status: 500 }
@@ -61,27 +61,19 @@ export async function POST(request: NextRequest) {
       escapeValue(telefon) + "|" +
       escapeValue(storeKey);
 
-    console.log("====================================");
-    console.log("🔐 HASH STRING:");
-    console.log(hashString);
-    console.log("====================================");
-
     const hash = crypto
       .createHash("sha512")
       .update(hashString, "utf8")
       .digest("base64");
 
-    console.log("✅ CALCULATED HASH:", hash);
-
     return NextResponse.json({ hash });
 
   } catch (error) {
-    console.error("❌ Hash hesaplama hatası:", error);
+    console.error("Hash hesaplama işlemi başarısız");
 
     return NextResponse.json(
       {
-        error: "Hash hesaplanamadı",
-        details: String(error)
+        error: "Hash hesaplanamadı"
       },
       { status: 500 }
     );
