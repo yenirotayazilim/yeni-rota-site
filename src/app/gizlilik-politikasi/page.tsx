@@ -290,7 +290,7 @@ export default function GizlilikPolitikasiPage() {
               <p className="mb-2">Verilerinizi korumak için aşağıdaki tedbirleri uygularız:</p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Tüm veri iletimi <strong>SSL/TLS şifreleme</strong> ile yapılır</li>
-                <li>Şifreler <strong>bcrypt</strong> ile hashlenir, açık metin olarak saklanmaz</li>
+                <li>Kullanıcı şifreleri <strong>Firebase Authentication (Google)</strong> tarafından güvenli şekilde yönetilir</li>
                 <li>Yetkili erişim kontrolü ve rol bazlı yetkilendirme</li>
                 <li>Düzenli güvenlik denetimleri</li>
                 <li>Veri ihlali müdahale prosedürü</li>
