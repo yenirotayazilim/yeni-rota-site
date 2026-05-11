@@ -90,7 +90,7 @@ export default function GizlilikPolitikasiPage() {
               <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.1. Kullanıcı Kimlik ve Hesap Verileri</h3>
               <ul className="list-disc pl-6 space-y-1">
                 <li><strong>E-posta adresi:</strong> Hesabınıza giriş yapmak için</li>
-                <li><strong>Şifre:</strong> Şifreniz hashlenmiş (geri döndürülemez) olarak saklanır</li>
+                <li><strong>Şifre yönetimi:</strong> Şifreniz Firebase Authentication (Google LLC) tarafından güvenli şekilde yönetilir. Yeni Rota Eğitim, kullanıcı şifrelerine erişemez ve şifreleri kendi sistemlerinde saklamaz.</li>
                 <li><strong>Kullanıcı kimliği (UID):</strong> Hesabınızı tanımlamak için</li>
               </ul>
 
@@ -98,10 +98,15 @@ export default function GizlilikPolitikasiPage() {
               <p className="mb-2">Uygulama, sunucumuzdan size ait şu bilgileri çeker ve gösterir:</p>
               <ul className="list-disc pl-6 space-y-1">
                 <li>Ad, soyad</li>
+                <li>E-posta adresi</li>
                 <li>Telefon numarası</li>
+                <li>Doğum tarihi</li>
+                <li>T.C. kimlik numarası (uygulamada maskeli gösterilir)</li>
+                <li>Adres bilgisi</li>
                 <li>Kayıtlı olduğunuz eğitim programları</li>
                 <li>Eğitim ilerleme durumu, canlı ders bilgileri, sertifika bilgileri</li>
                 <li>Sınav sonuçları ve katılım kayıtları</li>
+                <li>Ödeme planı bilgileri (taksit tutarı, ödeme durumu)</li>
               </ul>
 
               <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.3. Teknik ve Cihaz Verileri</h3>
@@ -231,26 +236,36 @@ export default function GizlilikPolitikasiPage() {
 
             {/* 8. Hesap Silme */}
             <div className="bg-[#6A0572]/5 rounded-lg p-5 border-2 border-[#6A0572]/30">
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">8. Hesap Silme Talebi</h2>
-              <p className="mb-3">
-                Mobil uygulamadaki hesabınızı ve verilerinizi silmek için:
+              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">8. Hesap Silme</h2>
+              <p className="mb-4">
+                Hesabınızı ve verilerinizi silmek için <strong>iki yöntem</strong> sunuyoruz:
               </p>
-              <ol className="list-decimal pl-6 space-y-2 mb-3">
-                <li>
-                  <strong>E-posta ile:</strong> <a href="mailto:info@yenirotaegitim.com?subject=Hesap%20Silme%20Talebi" className="text-[#6A0572] underline">info@yenirotaegitim.com</a> adresine &quot;Hesap Silme Talebi&quot; konusu ile mesaj gönderin
-                </li>
-                <li>
-                  Mesajınıza <strong>kayıtlı e-posta adresinizi</strong> ekleyin
-                </li>
-                <li>
-                  Talebiniz <strong>en geç 30 gün</strong> içinde sonuçlandırılır
-                </li>
+
+              <h3 className="font-bold text-[#8C1A85] mt-3 mb-2">Yöntem 1 — Uygulama İçinden (Önerilen)</h3>
+              <ol className="list-decimal pl-6 space-y-1 mb-3">
+                <li><strong>Profil</strong> sayfasına gidin</li>
+                <li><strong>Ayarlar</strong>&apos;a girin</li>
+                <li><strong>&quot;Hesabımı Sil&quot;</strong> seçeneğine dokunun</li>
+                <li>Onay ekranını okuyup talebinizi onaylayın</li>
               </ol>
-              <p className="mb-2"><strong>Hangi veriler silinir:</strong></p>
+              <p className="mb-4 text-sm">
+                Onay sonrası hesabınız <strong>anında</strong> Firebase Authentication sisteminden silinir ve uygulamaya bir daha aynı e-posta adresiyle giriş yapamazsınız.
+              </p>
+
+              <h3 className="font-bold text-[#8C1A85] mt-3 mb-2">Yöntem 2 — E-posta ile</h3>
+              <ol className="list-decimal pl-6 space-y-1 mb-3">
+                <li>
+                  <a href="mailto:info@yenirotaegitim.com?subject=Hesap%20Silme%20Talebi" className="text-[#6A0572] underline">info@yenirotaegitim.com</a> adresine &quot;Hesap Silme Talebi&quot; konusu ile mesaj gönderin
+                </li>
+                <li>Mesajınıza <strong>kayıtlı e-posta adresinizi</strong> ekleyin</li>
+                <li>Talebiniz <strong>en geç 30 gün</strong> içinde sonuçlandırılır</li>
+              </ol>
+
+              <p className="mb-2 mt-4"><strong>Hangi veriler silinir:</strong></p>
               <ul className="list-disc pl-6 space-y-1 mb-3">
                 <li>Profil bilgileriniz (ad, soyad, telefon, e-posta)</li>
                 <li>Giriş kimlik bilgileri (Firebase Auth hesabı)</li>
-                <li>Push bildirim token'ı</li>
+                <li>Push bildirim token&apos;ı</li>
                 <li>Uygulama oturum kayıtları</li>
               </ul>
               <p className="mb-2"><strong>Yasal nedenlerle saklanan veriler:</strong></p>
@@ -300,7 +315,7 @@ export default function GizlilikPolitikasiPage() {
                 <li><strong>Web:</strong> <a href="https://www.yenirotaegitim.com" className="text-[#6A0572] underline">www.yenirotaegitim.com</a></li>
               </ul>
               <p className="mt-3">
-                Türkiye'de yaşıyorsanız ayrıca <a href="/kvkk" className="text-[#6A0572] underline">KVKK Aydınlatma Metnimiz</a>i de inceleyebilirsiniz.
+                Türkiye&apos;de yaşıyorsanız ayrıca <a href="/kvkk" className="text-[#6A0572] underline">KVKK Aydınlatma Metnimiz</a>i de inceleyebilirsiniz.
               </p>
             </div>
 
