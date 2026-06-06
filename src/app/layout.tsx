@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import HideOnAppChat from "@/components/HideOnAppChat";
 import Script from "next/script";
 
 // Eğer Framer Motion ile sayfa geçişi kullanıyorsan:
@@ -101,7 +102,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
-        <Navbar />
+        <HideOnAppChat>
+          <Navbar />
+        </HideOnAppChat>
         {/* --- ANA İÇERİK --- */}
         <main className="flex-grow pt-[70px] min-h-screen">
           {/* Framer Motion ile sayfa geçişi için */}
@@ -112,11 +115,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
 
         {/* 🚀 RESPOND.IO WIDGET - ID DÜZELTİLDİ! */}
-        <Script
-          id="respondio__widget"
-          src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e"
-          strategy="afterInteractive"
-        />
+        {/* /app-sohbet sayfasında yüklenmez — orada app'in kendi sohbet kanalı var */}
+        <HideOnAppChat>
+          <Script
+            id="respondio__widget"
+            src="https://cdn.respond.io/webchat/widget/widget.js?cId=d45f5dd1397a7d50bd6b04e94b1d85e"
+            strategy="afterInteractive"
+          />
+        </HideOnAppChat>
   
         {FB_PIXEL && (
           <noscript>
@@ -130,7 +136,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           </noscript>
         )}
-        <Footer />
+        <HideOnAppChat>
+          <Footer />
+        </HideOnAppChat>
       </body>
     </html>
   );
