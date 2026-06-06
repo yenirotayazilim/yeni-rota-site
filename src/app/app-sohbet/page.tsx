@@ -17,20 +17,19 @@ const identifyScript = `
       var p = new URLSearchParams(h.substring(1));
       var ad = p.get("ad") || "";
       var soyad = p.get("soyad") || "";
-      var email = p.get("email") || "";
-      var tel = p.get("tel") || "";
       var uuid = p.get("uuid") || "";
-      if (tel || email) {
-        // Kimlik anahtarı TELEFON: respond.io'daki mevcut WhatsApp kişisiyle
-        // eşleşsin, mükerrer kişi açılmasın (delioğlan telefondan bulur).
+      if (uuid) {
+        // "Ayrı şerit" planı: telefon/email respond.io'ya GÖNDERİLMEZ —
+        // resmi alanlar boş kalır ki WhatsApp kayıtlarıyla mükerrer
+        // çakışması hiç doğmasın. Kimlik anahtarı kursiyer UUID'sidir,
+        // internal_id özel alanına yazılır (delioğlan Supabase'den
+        // telefon dahil her bilgiyi bu ID ile bulur).
         window.__respond_settings = {
-          identifier: tel || email,
+          identifier: uuid,
           firstName: ad,
           lastName: soyad,
-          phone: tel,
-          email: email,
           language: "tr",
-          custom_fields: { kursiyer_uuid: uuid },
+          custom_fields: { internal_id: uuid },
         };
       }
       history.replaceState(null, "", window.location.pathname);
