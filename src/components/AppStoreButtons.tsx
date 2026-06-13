@@ -10,7 +10,7 @@ export default function AppStoreButtons() {
       <div className="flex gap-6">
         {/* Google Play */}
         <a
-          href="https://play.google.com/store/apps/details?id=com.hayalmahsulleri.egitim&hl=en_US"
+          href="https://play.google.com/store/apps/details?id=com.yenirotaegitim.rotaedu"
           aria-label="Google Play"
           target="_blank"
           rel="noopener noreferrer"
@@ -28,7 +28,7 @@ export default function AppStoreButtons() {
 
         {/* App Store */}
         <a
-          href="https://apps.apple.com/tr/app/rotaedu/id6478789891?l=tr"
+          href="https://apps.apple.com/tr/app/id6776734802"
           aria-label="App Store"
           target="_blank"
           rel="noopener noreferrer"
