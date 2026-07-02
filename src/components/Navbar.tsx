@@ -170,7 +170,7 @@ export default function Navbar() {
         {/* Desktop Sağdaki Butonlar */}
         <div className="hidden md:flex items-center gap-2 lg:gap-3">
           <Link
-            href="https://rotaedu.com.tr/"
+            href="https://app.yenirotaegitim.com"
             className="px-5 py-2 rounded-xl font-semibold shadow-sm border border-[#6A0572] bg-white text-[#050005] hover:bg-[#8C1A85] hover:text-white transition-colors duration-500"
           >
             Öğrenci Girişi
@@ -244,7 +244,7 @@ export default function Navbar() {
         </ul>
         <div className="mt-5 flex flex-col gap-2 md:hidden">
           <Link
-            href="https://rotaedu.com.tr/"
+            href="https://app.yenirotaegitim.com"
             className="rounded-xl px-4 py-2 text-center font-semibold bg-[#6A0572] text-white border border-[#6A0572] hover:bg-[#8C1A85] transition"
           >
             Öğrenci Giriş
