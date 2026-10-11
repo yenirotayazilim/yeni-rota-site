@@ -69,7 +69,7 @@ export default function Footer() {
             <p className="text-sm text-gray-100">© {new Date().getFullYear()} Yeni Rota. Tüm hakları saklıdır.</p>
             <div className="flex items-center mt-4 space-x-4 sm:mt-0">
               <a href="https://www.instagram.com/rotaedu.tr/" className="text-indigo-100 hover:text-teal-400">Instagram</a>              
-              <a href="https://www.youtube.com/channel/UCT8uZhW9NDLPyy27zsm0UYQ" className="text-indigo-100 hover:text-teal-400">YouTube</a>
+              <a href="https://www.youtube.com/channel/UCY80SMr7A6CaLZgXH0GznYA" className="text-indigo-100 hover:text-teal-400">YouTube</a>
             </div>
           </div>
         </div>

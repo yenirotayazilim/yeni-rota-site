@@ -32,7 +32,7 @@ const orgJsonLd = {
   },
   sameAs: [
     'https://www.instagram.com/rotaedu.tr/',
-    'https://www.youtube.com/channel/UCT8uZhW9NDLPyy27zsm0UYQ',
+    'https://www.youtube.com/channel/UCY80SMr7A6CaLZgXH0GznYA',
   ],
 };
 
