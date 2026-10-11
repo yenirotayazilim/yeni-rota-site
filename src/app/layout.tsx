@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: '%s | Yeni Rota Eğitim Kurumları',
   },
   description:
-    'Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı eğitim programları. Millî Eğitim Bakanlığı ruhsatlı özel öğretim kurumu; 10.000’i aşkın öğrenci, 10 yılı aşkın kurumsal deneyim.',
+    'Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı eğitim programları. Millî Eğitim Bakanlığı ruhsatlı özel öğretim kurumu; 5.800’ü aşkın öğrenci, 10 yılı aşkın kurumsal deneyim.',
   keywords: [
     'sertifikalı eğitim',
     'kişisel gelişim eğitimi',

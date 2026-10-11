@@ -155,7 +155,7 @@ export default function HakkimizdaSayfasi() {
         <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)' }} className="rt-hk-rakam">
           {[
             ['11', 'Yıllık kurumsal deneyim', false],
-            ['10.412', 'Mezun ve kayıtlı öğrenci', true],
+            ['5.800', 'Mezun ve kayıtlı öğrenci', true],
             ['110', 'Sertifikalı ders programı', true],
           ].map(([sayi, etiket, arti], i) => (
             <div key={etiket as string} style={{ padding: '12px clamp(24px,3vw,44px)', borderRight: i < 2 ? '1px solid var(--rt-border)' : 'none' }}>

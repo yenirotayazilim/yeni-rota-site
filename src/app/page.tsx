@@ -106,7 +106,7 @@ export default async function AnaSayfa() {
           <GuvenRakamlari
             rakamlar={[
               // Öğrenci sayısı: Mustafa gerçek rakamı verince güncellenecek yer tutucu
-              { hedef: 10412, etiket: 'Mezun ve kayıtlı öğrenci', artiIsareti: true },
+              { hedef: 5800, etiket: 'Mezun ve kayıtlı öğrenci', artiIsareti: true },
               { hedef: programSayisi, etiket: 'Sertifikalı ders programı' },
               { hedef: 11, etiket: 'Yıllık kurumsal deneyim' },
             ]}
