@@ -1,70 +1,86 @@
-import type { Metadata } from "next";
-import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import HideOnAppChat from "@/components/HideOnAppChat";
-import Script from "next/script";
+import type { Metadata } from 'next';
+import { Cormorant_Garamond, Inter } from 'next/font/google';
+import Script from 'next/script';
+import './globals.css';
+import '@/styles/rota.css';
+import HideOnAppChat from '@/components/HideOnAppChat';
 
-// Eğer Framer Motion ile sayfa geçişi kullanıyorsan:
-import PageTransitionWrapper from "@/app/PageTransitionWrapper";
+// Marka fontları build sırasında indirilip siteden servis edilir —
+// ziyaretçinin tarayıcısı Google'a gitmez, ilk boyama hızlı kalır.
+const cormorant = Cormorant_Garamond({
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-cormorant',
+  display: 'swap',
+});
+const inter = Inter({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-inter',
+  display: 'swap',
+});
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 const FB_PIXEL = process.env.NEXT_PUBLIC_FB_PIXEL;
 
 export const metadata: Metadata = {
-  title: "Yeni Rota Eğitim | Türkiye'nin En Yenilikçi Eğitim Platformu",
-  description: "Canlı kurslar, uzman eğitmenler, modern dijital eğitim deneyimi. Yeni Rota ile geleceğe hazır olun!",
+  metadataBase: new URL('https://yenirotaegitim.com'),
+  title: {
+    default: 'Yeni Rota Eğitim Kurumları | Sertifikalı Eğitim Programları',
+    template: '%s | Yeni Rota Eğitim Kurumları',
+  },
+  description:
+    'Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı eğitim programları. Millî Eğitim Bakanlığı ruhsatlı özel öğretim kurumu; 10.000’i aşkın öğrenci, 10 yılı aşkın kurumsal deneyim.',
   keywords: [
-    "eğitim",
-    "uzaktan eğitim",
-    "canlı kurs",
-    "online eğitim",
-    "yeni rota",
-    "sertifika",
-    "uzman eğitmen",
-    "kişisel gelişim",
+    'sertifikalı eğitim',
+    'kişisel gelişim eğitimi',
+    'psikoloji eğitimi',
+    'sağlık eğitimi',
+    'eğitim programı',
+    'yeni rota eğitim',
   ],
-  authors: [{ name: "Yeni Rota" }],
+  authors: [{ name: 'Yeni Rota Eğitim Kurumları' }],
+  alternates: { canonical: '/' },
   openGraph: {
-    title: "Yeni Rota Eğitim | Türkiye'nin En Yenilikçi Eğitim Platformu",
-    description: "Canlı kurslar, uzman eğitmenler, modern dijital eğitim deneyimi. Yeni Rota ile geleceğe hazır olun!",
-    url: "https://yenirotaegitim.com",
-    siteName: "Yeni Rota Eğitim",
-    images: [
-      {
-        url: "https://yenirotaegitim.com/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Yeni Rota Eğitim Platformu",
-      },
-    ],
-    locale: "tr_TR",
-    type: "website",
+    title: 'Yeni Rota Eğitim Kurumları | Sertifikalı Eğitim Programları',
+    description:
+      'Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı eğitim programları.',
+    url: 'https://yenirotaegitim.com',
+    siteName: 'Yeni Rota Eğitim Kurumları',
+    images: [{ url: '/marka/kare-on-dark-1080.png', width: 1080, height: 1080, alt: 'Yeni Rota Eğitim Kurumları' }],
+    locale: 'tr_TR',
+    type: 'website',
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Yeni Rota Eğitim | Türkiye'nin En Yenilikçi Eğitim Platformu",
-    description: "Canlı kurslar, uzman eğitmenler, modern dijital eğitim deneyimi. Yeni Rota ile geleceğe hazır olun!",
-    images: ["https://yenirotaegitim.com/og-image.jpg"],
+    card: 'summary',
+    title: 'Yeni Rota Eğitim Kurumları | Sertifikalı Eğitim Programları',
+    description:
+      'Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı eğitim programları.',
+    images: ['/marka/kare-on-dark-1080.png'],
+  },
+  icons: {
+    icon: [
+      { url: '/marka/favicon-yildiz-gold-32.png', sizes: '32x32', type: 'image/png' },
+      { url: '/marka/favicon-yildiz-gold-64.png', sizes: '64x64', type: 'image/png' },
+    ],
+    apple: '/marka/favicon-yildiz-gold-512.png',
   },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr">
+    <html lang="tr" className={`${cormorant.variable} ${inter.variable}`}>
       <head>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/favicon.png" />
+        {/* Tema tercihi ilk boyamadan ÖNCE uygulanır — açık temada karanlık çakması olmaz */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(localStorage.getItem('rota-theme')==='light')document.documentElement.dataset.theme='light'}catch(e){}`,
+          }}
+        />
         {/* Google Analytics */}
         {GA_ID && (
           <>
-            <Script
-              async
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
-            />
+            <Script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
             <Script
               id="google-analytics"
               strategy="afterInteractive"
@@ -102,20 +118,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         )}
       </head>
       <body>
-        <HideOnAppChat>
-          <Navbar />
-        </HideOnAppChat>
-        {/* --- ANA İÇERİK --- */}
-        <main className="flex-grow pt-[70px] min-h-screen">
-          {/* Framer Motion ile sayfa geçişi için */}
-          <PageTransitionWrapper>
-            {children}
-          </PageTransitionWrapper>
-          {/* Motion kullanmayacaksan yukarıdaki iki satırı silip sadece {children} yazabilirsin */}
-        </main>
+        {children}
 
-        {/* 🚀 RESPOND.IO WIDGET - ID DÜZELTİLDİ! */}
-        {/* /app-sohbet sayfasında yüklenmez — orada app'in kendi sohbet kanalı var */}
+        {/* Site ziyaretçi sohbeti — /app-sohbet'te YÜKLENMEZ (app'in kendi kanalı var) */}
         <HideOnAppChat>
           <Script
             id="respondio__widget"
@@ -123,22 +128,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             strategy="afterInteractive"
           />
         </HideOnAppChat>
-  
+
         {FB_PIXEL && (
           <noscript>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               height="1"
               width="1"
-              style={{ display: "none" }}
+              style={{ display: 'none' }}
               src={`https://www.facebook.com/tr?id=${FB_PIXEL}&ev=PageView&noscript=1`}
               alt=""
             />
           </noscript>
         )}
-        <HideOnAppChat>
-          <Footer />
-        </HideOnAppChat>
       </body>
     </html>
   );

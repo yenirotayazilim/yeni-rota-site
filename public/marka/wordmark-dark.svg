@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 360" width="980" height="360" role="img" aria-label="Yeni Rota Eğitim Kurumları">
+  <style>
+    text { font-kerning: normal; }
+  </style>
+  <defs>
+    <linearGradient id="div" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#a8863c" stop-opacity="0"/>
+      <stop offset="0.2" stop-color="#a8863c" stop-opacity="0.6"/>
+      <stop offset="0.8" stop-color="#a8863c" stop-opacity="0.6"/>
+      <stop offset="1" stop-color="#a8863c" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(52,70) scale(2.2)">
+    <circle cx="50" cy="50" r="49" fill="none" stroke="#a8863c" stroke-width="0.8"/>
+    <circle cx="50" cy="50" r="42" fill="none" stroke="#a8863c" stroke-width="0.5" opacity="0.6"/>
+    <g stroke="#a8863c" stroke-width="0.9" stroke-linecap="round">
+      <line x1="50" y1="1" x2="50" y2="7"/><line x1="99" y1="50" x2="93" y2="50"/>
+      <line x1="50" y1="99" x2="50" y2="93"/><line x1="1" y1="50" x2="7" y2="50"/>
+    </g>
+    <g transform="translate(50,50) scale(0.62) translate(-50,-50)">
+      <path d="M74.04,25.96 L57,50 L74.04,74.04 L50,57 L25.96,74.04 L43,50 L25.96,25.96 L50,43 Z" fill="#a8863c"/>
+      <path d="M50,3 L54.95,45.05 L97,50 L54.95,54.95 L50,97 L45.05,54.95 L3,50 L45.05,45.05 Z" fill="#12021a"/>
+      <circle cx="50" cy="50" r="4.4" fill="#a8863c"/>
+      <circle cx="50" cy="50" r="1.7" fill="#12021a"/>
+    </g>
+  </g>
+  <rect x="340" y="76" width="1.4" height="208" fill="url(#div)"/>
+  <text x="412" y="116" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="26" letter-spacing="9.4" fill="#a8863c">YENİ</text>
+  <text x="406" y="232" font-family="'Cormorant Garamond', Georgia, 'Times New Roman', serif" font-weight="600" font-size="138" letter-spacing="6.9" fill="#12021a">ROTA</text>
+  <text x="412" y="280" font-family="Inter, 'Helvetica Neue', Arial, sans-serif" font-weight="500" font-size="23" letter-spacing="6.9" fill="#12021a" opacity="0.8">EĞİTİM KURUMLARI</text>
+</svg>

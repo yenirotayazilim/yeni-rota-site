@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="512" height="512" role="img" aria-label="Yeni Rota yıldız">
+  <g transform="translate(50,50) scale(0.9) translate(-50,-50)">
+      <path d="M74.04,25.96 L57,50 L74.04,74.04 L50,57 L25.96,74.04 L43,50 L25.96,25.96 L50,43 Z" fill="#c9a961"/>
+      <path d="M50,3 L54.95,45.05 L97,50 L54.95,54.95 L50,97 L45.05,54.95 L3,50 L45.05,45.05 Z" fill="#f1e5cf"/>
+      <circle cx="50" cy="50" r="4.4" fill="#c9a961"/>
+      <circle cx="50" cy="50" r="1.7" fill="#f1e5cf"/>
+  </g>
+</svg>

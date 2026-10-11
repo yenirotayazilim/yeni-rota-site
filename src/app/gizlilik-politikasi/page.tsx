@@ -1,333 +1,332 @@
-export default function GizlilikPolitikasiPage() {
+// Gizlilik Politikası — Rota Plus mobil uygulamasının gizlilik politikası.
+// KVKK sayfasıyla AYNI okuma kabuğunu (KvkkReader + .rt-kvkk-* şablonu) kullanır;
+// yalnızca içerik farklı. İçerik eski siteden taşındı, uygulama adı Rota Plus'a
+// güncellendi, gerçek kurum verileriyle dolduruldu.
+// ⚠️ Mobil app BU SAYFAYI (yenirotaegitim.com/gizlilik-politikasi) WebView'de açar — slug SABİT.
+
+import type { Metadata } from 'next';
+import Link from 'next/link';
+import SiteHeader from '@/components/rota/SiteHeader';
+import SiteFooter from '@/components/rota/SiteFooter';
+import KvkkReader from '@/components/rota/KvkkReader';
+
+const CONTACT_EMAIL = 'info@yenirotaegitim.com';
+const LAST_UPDATED = '15 Kasım 2025';
+const ADRES = 'Maltepe Mah. Şehit Daniş Tunalıgil Sk. No: 2/5 Çankaya / Ankara';
+
+export const metadata: Metadata = {
+  title: 'Gizlilik Politikası',
+  description:
+    'Rota Plus mobil uygulaması gizlilik politikası: uygulamanın hangi verileri işlediği, hangi üçüncü taraf hizmetleri kullandığı, saklama süreleri, hesap silme ve kullanıcı haklarınız.',
+  alternates: { canonical: '/gizlilik-politikasi' },
+  openGraph: {
+    title: 'Gizlilik Politikası | Yeni Rota Eğitim Kurumları',
+    description: 'Rota Plus mobil uygulamasının kullanıcı verilerini nasıl işlediğine ilişkin gizlilik politikası.',
+    url: 'https://yenirotaegitim.com/gizlilik-politikasi',
+    siteName: 'Yeni Rota Eğitim Kurumları',
+    images: [{ url: '/marka/kare-on-dark-1080.png', width: 1080, height: 1080, alt: 'Yeni Rota Eğitim Kurumları' }],
+    locale: 'tr_TR',
+    type: 'website',
+  },
+};
+
+const SECTIONS = [
+  { num: '01', id: 'madde-1', title: 'Geliştirici ve veri sorumlusu' },
+  { num: '02', id: 'madde-2', title: 'Uygulamanın işlediği veriler' },
+  { num: '03', id: 'madde-3', title: 'Toplanmayan veriler' },
+  { num: '04', id: 'madde-4', title: 'Verilerin kullanım amaçları' },
+  { num: '05', id: 'madde-5', title: 'Üçüncü taraf hizmet sağlayıcılar' },
+  { num: '06', id: 'madde-6', title: 'Veri aktarımı ve saklama' },
+  { num: '07', id: 'madde-7', title: 'Saklama süreleri' },
+  { num: '08', id: 'madde-8', title: 'Kullanıcı haklarınız' },
+  { num: '09', id: 'madde-9', title: 'Hesap silme' },
+  { num: '10', id: 'madde-10', title: 'Çocukların gizliliği' },
+  { num: '11', id: 'madde-11', title: 'Veri güvenliği' },
+  { num: '12', id: 'madde-12', title: 'Politika değişiklikleri' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Gizlilik Politikası | Yeni Rota Eğitim Kurumları',
+  url: 'https://yenirotaegitim.com/gizlilik-politikasi',
+  inLanguage: 'tr-TR',
+  isPartOf: { '@type': 'WebSite', name: 'Yeni Rota Eğitim Kurumları', url: 'https://yenirotaegitim.com' },
+  about: { '@type': 'MobileApplication', name: 'Rota Plus', operatingSystem: 'iOS, Android' },
+};
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Ana Sayfa', item: 'https://yenirotaegitim.com' },
+    { '@type': 'ListItem', position: 2, name: 'Gizlilik Politikası', item: 'https://yenirotaegitim.com/gizlilik-politikasi' },
+  ],
+};
+
+// ---- küçük yapı taşları (KVKK sayfasıyla aynı dil) ----
+const pStyle: React.CSSProperties = { margin: '18px 0 0', fontSize: 16, lineHeight: 1.85, color: 'var(--rt-fg-muted)', textWrap: 'pretty' };
+const ulStyle: React.CSSProperties = { listStyle: 'none', margin: '18px 0 0', padding: 0, display: 'flex', flexDirection: 'column', gap: 13 };
+
+function Madde({ num, id, title, children }: { num: string; id: string; title: string; children: React.ReactNode }) {
   return (
-    <section
-      className="min-h-screen px-4 py-20 font-sans relative"
-      style={{
-        minHeight: "100vh"
-      }}
-    >
-      {/* Yumuşak ana arka plan */}
-      <div
-        style={{
-          position: "fixed",
-          inset: 0,
-          zIndex: -1,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(ellipse at 50% 0%, #F8F9FA 0%, #E0F6FF 70%, #0D1B2A 100%)"
-        }}
-      />
-      <div className="max-w-4xl mx-auto">
-        {/* Başlık */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-[#6A0572] to-[#8C1A85] bg-clip-text text-transparent mb-3 tracking-tight">
+    <section id={id} style={{ scrollMarginTop: 92, marginTop: 56 }}>
+      <div style={{ display: 'flex', gap: 16, alignItems: 'baseline' }}>
+        <span style={{ fontFamily: 'var(--rt-font-display)', fontWeight: 600, fontSize: '1.5rem', color: 'var(--rt-fg-gold)', flex: '0 0 auto', fontVariantNumeric: 'tabular-nums' }}>{num}</span>
+        <h2 style={{ fontFamily: 'var(--rt-font-display)', fontWeight: 500, fontSize: 'clamp(1.55rem,3vw,1.95rem)', lineHeight: 1.15, color: 'var(--rt-fg)', margin: 0 }}>{title}</h2>
+      </div>
+      {children}
+    </section>
+  );
+}
+
+function Nokta({ children }: { children: React.ReactNode }) {
+  return (
+    <li style={{ display: 'flex', gap: 13, alignItems: 'flex-start', fontSize: 15.5, lineHeight: 1.75, color: 'var(--rt-fg-muted)' }}>
+      <span style={{ flex: '0 0 auto', width: 6, height: 6, background: 'var(--rt-accent)', marginTop: 10, transform: 'rotate(45deg)' }} aria-hidden="true" />
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function Guclu({ children }: { children: React.ReactNode }) {
+  return <strong style={{ color: 'var(--rt-fg)', fontWeight: 600 }}>{children}</strong>;
+}
+
+const SORUMLU = [
+  ['Geliştirici / veri sorumlusu', 'Yeni Rota Eğitim Kurumları'],
+  ['Yasal ünvan', 'Rota Aile Sağlığı ve Danışmanlığı Eğitim Hizmetleri Test Uygulamaları Psikoteknik Ticaret Limited Şirketi'],
+  ['Adres', ADRES],
+  ['E-posta', CONTACT_EMAIL],
+  ['Uygulama', 'Rota Plus (iOS & Android)'],
+];
+
+const TOPLANMAYAN = [
+  'Konum bilgisi (GPS)',
+  'Kamera, mikrofon ve fotoğraf galerisi erişimi',
+  'Rehber / kişiler',
+  'Sağlık verileri',
+  'Reklam tanımlayıcısı (IDFA / Advertising ID)',
+  'Tarama geçmişi',
+  'Kredi kartı veya diğer finansal bilgiler',
+];
+
+const SAGLAYICILAR = [
+  ['Firebase Authentication (Google LLC)', 'Kullanıcı kimlik doğrulama — giriş ve şifre yönetimi', 'ABD'],
+  ['Firebase Cloud Messaging (Google LLC)', 'Push bildirimlerinin gönderimi', 'ABD'],
+  ['Firebase Crashlytics (Google LLC)', 'Uygulama çökmelerinin otomatik raporlanması', 'ABD'],
+  ['Supabase (Supabase Inc.)', 'Eğitim ve profil verilerinin saklanması', 'Almanya (AB)'],
+  ['YouTube Embedded Player (Google LLC)', 'Eğitim videolarının uygulama içinde gösterimi (gizlilik modu açık)', 'ABD'],
+];
+
+const kutuStyle: React.CSSProperties = {
+  marginTop: 24,
+  padding: '24px 26px',
+  background: 'color-mix(in srgb, var(--rt-accent) 6%, var(--rt-bg-card))',
+  border: '1px solid var(--rt-border)',
+  borderLeft: '3px solid var(--rt-accent)',
+  borderRadius: 8,
+  boxShadow: 'var(--rt-hairline)',
+};
+const kutuEtiket: React.CSSProperties = {
+  font: '500 10.5px/1 var(--rt-font-body)',
+  letterSpacing: '0.2em',
+  textTransform: 'uppercase',
+  color: 'var(--rt-fg-gold)',
+  marginBottom: 14,
+};
+
+export default function GizlilikSayfasi() {
+  return (
+    <div className="rt-site">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+      <SiteHeader />
+
+      {/* ============ KOYU HERO ============ */}
+      <section className="rt-cat-hero">
+        <div className="rt-cat-glow" aria-hidden="true" />
+        <div className="rt-cat-hero-inner">
+          <div className="rt-cat-eyebrow">Yasal Bilgilendirme · Gizlilik</div>
+          <h1 className="rt-cat-title" style={{ fontSize: 'clamp(2.5rem,5.2vw,4rem)', lineHeight: 1.04 }}>
             Gizlilik Politikası
           </h1>
-          <p className="text-[#0D1B2A] text-md md:text-lg">
-            RotaEdu Mobil Uygulaması — Privacy Policy
+          <p className="rt-cat-sub" style={{ maxWidth: '60ch' }}>
+            Rota Plus mobil uygulamasının hangi verileri işlediğini, bu verileri neden kullandığını ve
+            gizliliğinizi korumak için aldığı tedbirleri bu metinde açıklıyoruz.
           </p>
-          <p className="text-[#6A0572] text-sm mt-2 font-semibold">
-            Son Güncelleme: 15 Kasım 2025
-          </p>
-        </div>
-
-        {/* Ana Kart */}
-        <div className="relative bg-[#F8F9FA]/95 rounded-2xl border border-[#E2D1E8] p-6 md:p-10 shadow-lg">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-[#6A0572] to-[#8C1A85] rounded-t-xl"></div>
-
-          <div className="text-[#0D1B2A] leading-relaxed space-y-8 text-sm md:text-base">
-
-            {/* Giriş */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">Giriş</h2>
-              <p className="mb-3">
-                Bu Gizlilik Politikası, <strong>Yeni Rota Eğitim</strong> tarafından geliştirilen ve dağıtılan <strong>RotaEdu</strong> mobil uygulamasının (iOS ve Android) kullanıcı verilerini nasıl işlediğini açıklar.
-              </p>
-              <p className="mb-3">
-                <strong>Önemli not:</strong> RotaEdu mobil uygulaması, kullanıcılardan <strong>yeni kişisel veri toplamaz</strong>. Uygulamaya giriş yapabilmek için, kullanıcının önceden web sitemiz veya danışmanlarımız üzerinden eğitim kaydı yaptırmış olması gerekir. Mobil uygulama, daha önce paylaştığınız bilgileri <strong>görüntülemek</strong> ve eğitim hizmetini sunmak için kullanılır.
-              </p>
-              <p>
-                Bununla birlikte, uygulamanın çalışabilmesi için bazı teknik veriler işlenir. Bu politika, bu işlemleri şeffaf bir şekilde açıklar.
-              </p>
-            </div>
-
-            {/* 1. Geliştirici Bilgisi */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">1. Geliştirici Bilgisi</h2>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm border-collapse">
-                  <tbody>
-                    <tr className="border-b border-[#E2D1E8]">
-                      <td className="py-2 pr-4 font-semibold align-top w-1/3">Geliştirici / Veri Sorumlusu</td>
-                      <td className="py-2">Yeni Rota Eğitim</td>
-                    </tr>
-                    <tr className="border-b border-[#E2D1E8]">
-                      <td className="py-2 pr-4 font-semibold align-top">Yasal Ünvan</td>
-                      <td className="py-2">Rota Aile Sağlığı ve Danışmanlığı Eğitim Hizmetleri Test Uygulamaları Psikoteknik Ticaret Limited Şirketi</td>
-                    </tr>
-                    <tr className="border-b border-[#E2D1E8]">
-                      <td className="py-2 pr-4 font-semibold align-top">Adres</td>
-                      <td className="py-2">Maltepe Mahallesi Şehit Daniş Tunalıgil Sk. No: 2/5 Çankaya/Ankara</td>
-                    </tr>
-                    <tr className="border-b border-[#E2D1E8]">
-                      <td className="py-2 pr-4 font-semibold align-top">E-posta</td>
-                      <td className="py-2"><a href="mailto:info@yenirotaegitim.com" className="text-[#6A0572] underline">info@yenirotaegitim.com</a></td>
-                    </tr>
-                    <tr>
-                      <td className="py-2 pr-4 font-semibold align-top">Uygulama Adı</td>
-                      <td className="py-2">RotaEdu (iOS &amp; Android)</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            {/* 2. Uygulamanın İşlediği Veriler */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">2. Uygulamanın İşlediği Veriler</h2>
-              <p className="mb-3">RotaEdu mobil uygulaması aşağıdaki verileri işler:</p>
-
-              <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.1. Kullanıcı Kimlik ve Hesap Verileri</h3>
-              <ul className="list-disc pl-6 space-y-1">
-                <li><strong>E-posta adresi:</strong> Hesabınıza giriş yapmak için</li>
-                <li><strong>Şifre yönetimi:</strong> Şifreniz Firebase Authentication (Google LLC) tarafından güvenli şekilde yönetilir. Yeni Rota Eğitim, kullanıcı şifrelerine erişemez ve şifreleri kendi sistemlerinde saklamaz.</li>
-                <li><strong>Kullanıcı kimliği (UID):</strong> Hesabınızı tanımlamak için</li>
-              </ul>
-
-              <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.2. Eğitim ve Profil Verileri (Sunucudan Çekilen)</h3>
-              <p className="mb-2">Uygulama, sunucumuzdan size ait şu bilgileri çeker ve gösterir:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>Ad, soyad</li>
-                <li>E-posta adresi</li>
-                <li>Telefon numarası</li>
-                <li>Doğum tarihi</li>
-                <li>T.C. kimlik numarası (uygulamada maskeli gösterilir)</li>
-                <li>Adres bilgisi</li>
-                <li>Kayıtlı olduğunuz eğitim programları</li>
-                <li>Eğitim ilerleme durumu, canlı ders bilgileri, sertifika bilgileri</li>
-                <li>Sınav sonuçları ve katılım kayıtları</li>
-                <li>Ödeme planı bilgileri (taksit tutarı, ödeme durumu)</li>
-              </ul>
-
-              <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.3. Teknik ve Cihaz Verileri</h3>
-              <ul className="list-disc pl-6 space-y-1">
-                <li><strong>Cihaz tanımlayıcısı (Device Token):</strong> Push bildirim gönderebilmek için</li>
-                <li><strong>İşletim sistemi ve sürüm bilgisi:</strong> Uygulama uyumluluğu için</li>
-                <li><strong>Uygulama sürümü:</strong> Destek ve hata ayıklama için</li>
-                <li><strong>Hata raporları (Crash Reports):</strong> Uygulama çökerse otomatik gönderilir, kişisel veri içermez</li>
-              </ul>
-
-              <h3 className="font-semibold text-[#8C1A85] mt-4 mb-2">2.4. Uygulama İçinde TOPLANMAYAN Veriler</h3>
-              <p className="mb-2">Aşağıdaki veriler RotaEdu uygulaması tarafından <strong>toplanmaz</strong>:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>❌ Konum bilgisi (GPS)</li>
-                <li>❌ Kamera, mikrofon, fotoğraf galerisi erişimi</li>
-                <li>❌ Rehber/kişiler</li>
-                <li>❌ Sağlık verileri</li>
-                <li>❌ Reklam tanımlayıcısı (IDFA / Advertising ID)</li>
-                <li>❌ Tarama geçmişi</li>
-                <li>❌ Kredi kartı veya finansal bilgi</li>
-              </ul>
-            </div>
-
-            {/* 3. Verilerin Kullanım Amaçları */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">3. Verilerin Kullanım Amaçları</h2>
-              <p className="mb-2">Topladığımız veriler yalnızca aşağıdaki amaçlarla kullanılır:</p>
-              <ol className="list-decimal pl-6 space-y-1">
-                <li><strong>Kimlik doğrulama:</strong> Hesabınıza güvenli şekilde giriş yapmanızı sağlamak</li>
-                <li><strong>Eğitim hizmetinin sunulması:</strong> Kayıtlı olduğunuz derslere erişiminizi sağlamak</li>
-                <li><strong>Bildirim gönderimi:</strong> Ders hatırlatmaları, duyurular ve önemli güncellemeler</li>
-                <li><strong>Uygulama performansı:</strong> Hataları tespit etmek ve düzeltmek</li>
-                <li><strong>Güvenlik:</strong> Yetkisiz erişimi tespit ve önlemek</li>
-              </ol>
-              <p className="mt-3">Verileriniz <strong>reklam, profil çıkarma veya üçüncü taraflara satış</strong> amacıyla kullanılmaz.</p>
-            </div>
-
-            {/* 4. Üçüncü Taraf Hizmet Sağlayıcılar */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">4. Üçüncü Taraf Hizmet Sağlayıcılar</h2>
-              <p className="mb-3">RotaEdu uygulaması, çalışabilmek için aşağıdaki üçüncü taraf hizmet sağlayıcıları kullanır. Bu sağlayıcıların gizlilik politikalarına bağlantılar aşağıdadır.</p>
-
-              <div className="space-y-4">
-
-                <div className="bg-white/60 rounded-lg p-4 border border-[#E2D1E8]">
-                  <h3 className="font-bold text-[#8C1A85] mb-1">Firebase Authentication (Google LLC)</h3>
-                  <p className="text-sm mb-1"><strong>Amaç:</strong> Kullanıcı kimlik doğrulama (giriş/şifre)</p>
-                  <p className="text-sm mb-1"><strong>İşlenen veri:</strong> E-posta, hashlenmiş şifre, kullanıcı kimliği (UID)</p>
-                  <p className="text-sm mb-1"><strong>Veri merkezi:</strong> ABD</p>
-                  <p className="text-sm"><strong>Politika:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#6A0572] underline">policies.google.com/privacy</a></p>
-                </div>
-
-                <div className="bg-white/60 rounded-lg p-4 border border-[#E2D1E8]">
-                  <h3 className="font-bold text-[#8C1A85] mb-1">Firebase Cloud Messaging — FCM (Google LLC)</h3>
-                  <p className="text-sm mb-1"><strong>Amaç:</strong> Push bildirim gönderimi</p>
-                  <p className="text-sm mb-1"><strong>İşlenen veri:</strong> Cihaz token, uygulama kimliği</p>
-                  <p className="text-sm mb-1"><strong>Veri merkezi:</strong> ABD</p>
-                  <p className="text-sm"><strong>Politika:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#6A0572] underline">policies.google.com/privacy</a></p>
-                </div>
-
-                <div className="bg-white/60 rounded-lg p-4 border border-[#E2D1E8]">
-                  <h3 className="font-bold text-[#8C1A85] mb-1">Firebase Crashlytics (Google LLC)</h3>
-                  <p className="text-sm mb-1"><strong>Amaç:</strong> Uygulama çökmelerinin otomatik raporlanması</p>
-                  <p className="text-sm mb-1"><strong>İşlenen veri:</strong> Çökme logları, cihaz modeli, işletim sistemi sürümü, uygulama sürümü</p>
-                  <p className="text-sm mb-1"><strong>Veri merkezi:</strong> ABD</p>
-                  <p className="text-sm"><strong>Politika:</strong> <a href="https://firebase.google.com/support/privacy" target="_blank" rel="noopener noreferrer" className="text-[#6A0572] underline">firebase.google.com/support/privacy</a></p>
-                </div>
-
-                <div className="bg-white/60 rounded-lg p-4 border border-[#E2D1E8]">
-                  <h3 className="font-bold text-[#8C1A85] mb-1">Supabase (Supabase Inc.)</h3>
-                  <p className="text-sm mb-1"><strong>Amaç:</strong> Eğitim ve kullanıcı verilerinin saklanması</p>
-                  <p className="text-sm mb-1"><strong>İşlenen veri:</strong> Profil bilgileri, eğitim kayıtları</p>
-                  <p className="text-sm mb-1"><strong>Veri merkezi:</strong> Almanya (Avrupa Birliği)</p>
-                  <p className="text-sm"><strong>Politika:</strong> <a href="https://supabase.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#6A0572] underline">supabase.com/privacy</a></p>
-                </div>
-
-                <div className="bg-white/60 rounded-lg p-4 border border-[#E2D1E8]">
-                  <h3 className="font-bold text-[#8C1A85] mb-1">YouTube Embedded Player (Google LLC)</h3>
-                  <p className="text-sm mb-1"><strong>Amaç:</strong> Eğitim videolarının uygulama içinde gösterilmesi</p>
-                  <p className="text-sm mb-1"><strong>İşlenen veri:</strong> Video oynatma sırasında YouTube tarafından IP adresi ve oturum bilgisi işlenebilir</p>
-                  <p className="text-sm mb-1"><strong>Not:</strong> Gizliliğinizi korumak için &quot;İlgili Video Önerme&quot; (rel=0) ve modest branding ayarları aktiftir.</p>
-                  <p className="text-sm"><strong>Politika:</strong> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" className="text-[#6A0572] underline">policies.google.com/privacy</a></p>
-                </div>
-
-              </div>
-            </div>
-
-            {/* 5. Veri Aktarımı */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">5. Veri Aktarımı ve Saklama</h2>
-              <p className="mb-2">
-                Verileriniz yukarıda belirtilen hizmet sağlayıcıların sunucularında saklanır. Bu sunucular yurt dışında (ABD ve Avrupa Birliği) bulunabilir. Veri aktarımları:
-              </p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>SSL/TLS şifreleme ile yapılır</li>
-                <li>Sağlayıcılarla veri işleme sözleşmeleri akdedilmiştir</li>
-                <li>Sağlayıcılar uluslararası güvenlik standartlarına (ISO 27001, SOC 2) uyar</li>
-              </ul>
-            </div>
-
-            {/* 6. Veri Saklama Süresi */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">6. Veri Saklama Süresi</h2>
-              <ul className="list-disc pl-6 space-y-2">
-                <li><strong>Aktif hesap verileri:</strong> Hesabınız aktif olduğu sürece saklanır</li>
-                <li><strong>Crash raporları:</strong> 90 gün sonra otomatik silinir</li>
-                <li><strong>Push token:</strong> Uygulamayı silene veya çıkış yapana kadar</li>
-                <li><strong>Yasal saklama:</strong> Fatura ve sertifika kayıtları (Vergi Usul Kanunu ve MEB mevzuatı gereği <strong>10 yıl</strong> saklanır, anonim hale getirilebilir)</li>
-              </ul>
-            </div>
-
-            {/* 7. Kullanıcı Hakları */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">7. Kullanıcı Haklarınız</h2>
-              <p className="mb-2">Aşağıdaki haklara sahipsiniz:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>Verilerinize <strong>erişim</strong> talep etme</li>
-                <li>Verilerinizin <strong>düzeltilmesini</strong> talep etme</li>
-                <li>Verilerinizin <strong>silinmesini</strong> talep etme</li>
-                <li><strong>Hesabınızı silme</strong> (bkz. Bölüm 8)</li>
-                <li>Push bildirim izinlerini cihaz ayarlarından <strong>geri çekme</strong></li>
-              </ul>
-              <p className="mt-3">
-                Tüm haklarınızı kullanmak için: <a href="mailto:info@yenirotaegitim.com" className="text-[#6A0572] underline">info@yenirotaegitim.com</a>
-              </p>
-            </div>
-
-            {/* 8. Hesap Silme */}
-            <div className="bg-[#6A0572]/5 rounded-lg p-5 border-2 border-[#6A0572]/30">
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">8. Hesap Silme</h2>
-              <p className="mb-4">
-                Hesabınızı ve verilerinizi silmek için <strong>iki yöntem</strong> sunuyoruz:
-              </p>
-
-              <h3 className="font-bold text-[#8C1A85] mt-3 mb-2">Yöntem 1 — Uygulama İçinden (Önerilen)</h3>
-              <ol className="list-decimal pl-6 space-y-1 mb-3">
-                <li><strong>Profil</strong> sayfasına gidin</li>
-                <li><strong>Ayarlar</strong>&apos;a girin</li>
-                <li><strong>&quot;Hesabımı Sil&quot;</strong> seçeneğine dokunun</li>
-                <li>Onay ekranını okuyup talebinizi onaylayın</li>
-              </ol>
-              <p className="mb-4 text-sm">
-                Onay sonrası hesabınız <strong>anında</strong> Firebase Authentication sisteminden silinir ve uygulamaya bir daha aynı e-posta adresiyle giriş yapamazsınız.
-              </p>
-
-              <h3 className="font-bold text-[#8C1A85] mt-3 mb-2">Yöntem 2 — E-posta ile</h3>
-              <ol className="list-decimal pl-6 space-y-1 mb-3">
-                <li>
-                  <a href="mailto:info@yenirotaegitim.com?subject=Hesap%20Silme%20Talebi" className="text-[#6A0572] underline">info@yenirotaegitim.com</a> adresine &quot;Hesap Silme Talebi&quot; konusu ile mesaj gönderin
-                </li>
-                <li>Mesajınıza <strong>kayıtlı e-posta adresinizi</strong> ekleyin</li>
-                <li>Talebiniz <strong>en geç 30 gün</strong> içinde sonuçlandırılır</li>
-              </ol>
-
-              <p className="mb-2 mt-4"><strong>Hangi veriler silinir:</strong></p>
-              <ul className="list-disc pl-6 space-y-1 mb-3">
-                <li>Profil bilgileriniz (ad, soyad, telefon, e-posta)</li>
-                <li>Giriş kimlik bilgileri (Firebase Auth hesabı)</li>
-                <li>Push bildirim token&apos;ı</li>
-                <li>Uygulama oturum kayıtları</li>
-              </ul>
-              <p className="mb-2"><strong>Yasal nedenlerle saklanan veriler:</strong></p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>Fatura kayıtları (Vergi Usul Kanunu Md. 253 — 10 yıl)</li>
-                <li>Sertifika kayıtları (MEB mevzuatı — 10 yıl)</li>
-              </ul>
-              <p className="mt-3 text-sm italic">Bu yasal olarak saklanması gereken veriler <strong>anonim hale getirilir</strong> ve sizinle ilişkilendirilemez.</p>
-            </div>
-
-            {/* 9. Çocuklar */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">9. Çocukların Gizliliği</h2>
-              <p>
-                RotaEdu uygulaması <strong>18 yaş ve üzeri</strong> bireylere yöneliktir. 18 yaş altı kullanıcılardan bilerek veri toplamayız. Bir çocuğun verisini topladığımızı tespit edersek derhal sileriz.
-              </p>
-            </div>
-
-            {/* 10. Güvenlik */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">10. Veri Güvenliği</h2>
-              <p className="mb-2">Verilerinizi korumak için aşağıdaki tedbirleri uygularız:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li>Tüm veri iletimi <strong>SSL/TLS şifreleme</strong> ile yapılır</li>
-                <li>Kullanıcı şifreleri <strong>Firebase Authentication (Google)</strong> tarafından güvenli şekilde yönetilir</li>
-                <li>Yetkili erişim kontrolü ve rol bazlı yetkilendirme</li>
-                <li>Düzenli güvenlik denetimleri</li>
-                <li>Veri ihlali müdahale prosedürü</li>
-              </ul>
-            </div>
-
-            {/* 11. Değişiklikler */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">11. Politika Değişiklikleri</h2>
-              <p>
-                Bu Gizlilik Politikası, yasal düzenlemeler veya uygulama özelliklerindeki değişiklikler doğrultusunda güncellenebilir. Güncel versiyon her zaman bu sayfada yayınlanır. Önemli değişikliklerde uygulama içi bildirim veya e-posta yoluyla bilgilendirilirsiniz.
-              </p>
-            </div>
-
-            {/* 12. İletişim */}
-            <div>
-              <h2 className="text-xl md:text-2xl font-bold text-[#6A0572] mb-3">12. İletişim</h2>
-              <p className="mb-2">Bu politika veya gizlilik uygulamalarımız hakkında sorularınız için:</p>
-              <ul className="list-disc pl-6 space-y-1">
-                <li><strong>E-posta:</strong> <a href="mailto:info@yenirotaegitim.com" className="text-[#6A0572] underline">info@yenirotaegitim.com</a></li>
-                <li><strong>Adres:</strong> Maltepe Mahallesi Şehit Daniş Tunalıgil Sk. No: 2/5 Çankaya/Ankara</li>
-                <li><strong>Web:</strong> <a href="https://www.yenirotaegitim.com" className="text-[#6A0572] underline">www.yenirotaegitim.com</a></li>
-              </ul>
-              <p className="mt-3">
-                Türkiye&apos;de yaşıyorsanız ayrıca <a href="/kvkk" className="text-[#6A0572] underline">KVKK Aydınlatma Metnimiz</a>i de inceleyebilirsiniz.
-              </p>
-            </div>
-
-            {/* Alt bilgi */}
-            <div className="pt-6 border-t border-[#E2D1E8] text-center text-sm text-gray-600">
-              <p><strong>Son Güncelleme Tarihi:</strong> 15 Kasım 2025</p>
-              <p><strong>Yürürlük Tarihi:</strong> 15 Kasım 2025</p>
-            </div>
-
+          <div className="rt-cat-meta">
+            <span className="item">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--rt-gold-500)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></svg>
+              Son güncelleme: {LAST_UPDATED}
+            </span>
+            <span className="dot" />
+            <span className="item" style={{ fontFamily: 'var(--rt-font-display)', fontStyle: 'italic', fontSize: 15 }}>Rota Plus · iOS & Android</span>
           </div>
         </div>
-      </div>
-    </section>
-  )
+      </section>
+
+      {/* ============ OKUMA KABUĞU ============ */}
+      <KvkkReader sections={SECTIONS}>
+        <p style={{ margin: '0 0 8px', fontSize: 16, lineHeight: 1.85, color: 'var(--rt-fg-muted)', textWrap: 'pretty' }}>
+          Bu Gizlilik Politikası, Yeni Rota Eğitim Kurumları tarafından geliştirilen <Guclu>Rota Plus</Guclu>{' '}
+          mobil uygulamasının (iOS ve Android) kullanıcı verilerini nasıl işlediğini açıklar. <Guclu>Önemli
+          not:</Guclu> Rota Plus uygulaması kullanıcılardan yeni kişisel veri toplamaz; uygulamaya giriş
+          yapabilmek için önceden internet sitemiz veya danışmanlarımız üzerinden eğitim kaydı yaptırmış
+          olmanız gerekir. Uygulama, daha önce paylaştığınız bilgileri görüntülemek ve eğitim hizmetini
+          sunmak için kullanılır. Bununla birlikte, uygulamanın çalışabilmesi için bazı teknik veriler
+          işlenir; bu politika söz konusu işlemleri şeffaf bir biçimde açıklar.
+        </p>
+
+        <Madde num="01" id="madde-1" title="Geliştirici ve veri sorumlusu">
+          <p style={pStyle}>Rota Plus uygulaması, aşağıda bilgileri yer alan Kurum tarafından geliştirilmekte ve sunulmaktadır.</p>
+          <div className="rt-kvkk-tbl two" style={{ marginTop: 24 }}>
+            {SORUMLU.map(([k, v]) => (
+              <div className="rt-kvkk-trow" key={k}>
+                <div className="rt-kvkk-td k" data-label="Alan">{k}</div>
+                <div className="rt-kvkk-td" data-label="Bilgi">{v}</div>
+              </div>
+            ))}
+          </div>
+        </Madde>
+
+        <Madde num="02" id="madde-2" title="Uygulamanın işlediği veriler">
+          <p style={pStyle}>Rota Plus uygulaması, hizmetin sunulabilmesi için aşağıdaki verileri işler:</p>
+          <ul style={ulStyle}>
+            <Nokta><Guclu>Kimlik ve hesap verileri:</Guclu> Giriş için e-posta adresi ve kullanıcı kimliği (UID). Şifreniz Firebase Authentication (Google LLC) tarafından güvenli biçimde yönetilir; Yeni Rota Eğitim Kurumları kullanıcı şifrelerine erişemez ve bunları kendi sistemlerinde saklamaz.</Nokta>
+            <Nokta><Guclu>Sunucudan çekilen profil ve eğitim verileri:</Guclu> Ad-soyad, e-posta, telefon, doğum tarihi, T.C. kimlik numarası (uygulamada maskeli gösterilir), adres, kayıtlı programlar, ders ilerlemesi, canlı ders ve sertifika bilgileri, sınav sonuçları ile ödeme planı bilgileri.</Nokta>
+            <Nokta><Guclu>Teknik ve cihaz verileri:</Guclu> Push bildirimi için cihaz tanımlayıcısı (device token), işletim sistemi ve sürümü, uygulama sürümü ve — çökme hâlinde otomatik gönderilen — kişisel veri içermeyen çökme raporları.</Nokta>
+          </ul>
+        </Madde>
+
+        <Madde num="03" id="madde-3" title="Toplanmayan veriler">
+          <p style={pStyle}>Rota Plus uygulaması, aşağıdaki verileri <Guclu>toplamaz</Guclu>:</p>
+          <ul style={ulStyle}>
+            {TOPLANMAYAN.map((t) => (
+              <Nokta key={t}>{t}</Nokta>
+            ))}
+          </ul>
+        </Madde>
+
+        <Madde num="04" id="madde-4" title="Verilerin kullanım amaçları">
+          <p style={pStyle}>İşlenen veriler yalnızca aşağıdaki amaçlarla kullanılır:</p>
+          <ul style={ulStyle}>
+            <Nokta><Guclu>Kimlik doğrulama:</Guclu> Hesabınıza güvenli biçimde giriş yapmanızı sağlamak,</Nokta>
+            <Nokta><Guclu>Eğitim hizmetinin sunulması:</Guclu> Kayıtlı olduğunuz derslere erişiminizi sağlamak,</Nokta>
+            <Nokta><Guclu>Bildirim gönderimi:</Guclu> Ders hatırlatmaları, duyurular ve önemli güncellemeler,</Nokta>
+            <Nokta><Guclu>Uygulama performansı:</Guclu> Hataları tespit etmek ve gidermek,</Nokta>
+            <Nokta><Guclu>Güvenlik:</Guclu> Yetkisiz erişimi tespit ve önlemek.</Nokta>
+          </ul>
+          <p style={{ margin: '20px 0 0', fontSize: 15, lineHeight: 1.75, color: 'var(--rt-fg-dim)', textWrap: 'pretty' }}>Verileriniz reklam, profil çıkarma veya üçüncü taraflara satış amacıyla kullanılmaz.</p>
+        </Madde>
+
+        <Madde num="05" id="madde-5" title="Üçüncü taraf hizmet sağlayıcılar">
+          <p style={pStyle}>Uygulama, çalışabilmek için aşağıdaki üçüncü taraf hizmet sağlayıcıları kullanır. Bu sağlayıcılar yalnızca kendi işlevleri için gerekli verileri işler:</p>
+          <div className="rt-kvkk-tbl three">
+            <div className="rt-kvkk-trow head"><div className="rt-kvkk-th">Sağlayıcı</div><div className="rt-kvkk-th">Amaç</div><div className="rt-kvkk-th">Veri merkezi</div></div>
+            {SAGLAYICILAR.map(([a, b, c]) => (
+              <div className="rt-kvkk-trow" key={a}>
+                <div className="rt-kvkk-td k" data-label="Sağlayıcı">{a}</div>
+                <div className="rt-kvkk-td" data-label="Amaç">{b}</div>
+                <div className="rt-kvkk-td" data-label="Veri merkezi">{c}</div>
+              </div>
+            ))}
+          </div>
+        </Madde>
+
+        <Madde num="06" id="madde-6" title="Veri aktarımı ve saklama">
+          <p style={pStyle}>Verileriniz, yukarıda belirtilen hizmet sağlayıcıların sunucularında saklanır; bu sunucular yurt dışında (ABD ve Avrupa Birliği) bulunabilir. Veri aktarımları SSL/TLS şifreleme ile yapılır, sağlayıcılarla veri işleme sözleşmeleri akdedilmiştir ve sağlayıcılar uluslararası güvenlik standartlarına (ISO 27001, SOC 2 vb.) uymaktadır.</p>
+        </Madde>
+
+        <Madde num="07" id="madde-7" title="Veri saklama süreleri">
+          <ul style={ulStyle}>
+            <Nokta><Guclu>Aktif hesap verileri:</Guclu> Hesabınız aktif olduğu sürece saklanır.</Nokta>
+            <Nokta><Guclu>Çökme raporları:</Guclu> 90 gün sonra otomatik olarak silinir.</Nokta>
+            <Nokta><Guclu>Push bildirimi token’ı:</Guclu> Uygulamayı silene veya çıkış yapana kadar saklanır.</Nokta>
+            <Nokta><Guclu>Yasal saklama:</Guclu> Fatura ve sertifika kayıtları, Vergi Usul Kanunu ve MEB mevzuatı gereği 10 yıl saklanır; bu veriler anonim hâle getirilebilir.</Nokta>
+          </ul>
+        </Madde>
+
+        <Madde num="08" id="madde-8" title="Kullanıcı haklarınız">
+          <p style={pStyle}>Kişisel verilerinize ilişkin aşağıdaki haklara sahipsiniz:</p>
+          <ul style={ulStyle}>
+            <Nokta>Verilerinize erişim talep etme,</Nokta>
+            <Nokta>Verilerinizin düzeltilmesini talep etme,</Nokta>
+            <Nokta>Verilerinizin silinmesini talep etme,</Nokta>
+            <Nokta>Hesabınızı silme (bkz. madde 09),</Nokta>
+            <Nokta>Push bildirim izinlerini cihaz ayarlarından geri çekme.</Nokta>
+          </ul>
+          <p style={{ margin: '20px 0 0', fontSize: 15, lineHeight: 1.75, color: 'var(--rt-fg-dim)', textWrap: 'pretty' }}>Haklarınızı kullanmak için <Guclu>{CONTACT_EMAIL}</Guclu> adresine başvurabilirsiniz.</p>
+        </Madde>
+
+        <Madde num="09" id="madde-9" title="Hesap silme">
+          <p style={pStyle}>Hesabınızı ve ilişkili verilerinizi silmek için iki yöntem sunuyoruz:</p>
+          <div style={kutuStyle}>
+            <div style={kutuEtiket}>Yöntem 1 — Uygulama içinden (önerilen)</div>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: 'var(--rt-fg-muted)', textWrap: 'pretty' }}>
+              Profil sayfasına gidin, <Guclu>Ayarlar</Guclu>’a girin, <Guclu>“Hesabımı Sil”</Guclu>
+              seçeneğine dokunun ve onay ekranını okuyup talebinizi onaylayın. Onay sonrası hesabınız
+              anında Firebase Authentication sisteminden silinir.
+            </p>
+          </div>
+          <div style={{ ...kutuStyle, marginTop: 20 }}>
+            <div style={kutuEtiket}>Yöntem 2 — E-posta ile</div>
+            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.7, color: 'var(--rt-fg-muted)', textWrap: 'pretty' }}>
+              <Guclu>{CONTACT_EMAIL}</Guclu> adresine, kayıtlı e-posta adresinizi belirterek “Hesap Silme
+              Talebi” konusuyla mesaj gönderin. Talebiniz en geç 30 gün içinde sonuçlandırılır.
+            </p>
+          </div>
+          <p style={{ margin: '20px 0 0', fontSize: 15, lineHeight: 1.75, color: 'var(--rt-fg-dim)', textWrap: 'pretty' }}>
+            Profil bilgileriniz, giriş kimlik bilgileriniz, push token’ınız ve oturum kayıtlarınız silinir.
+            Fatura kayıtları (Vergi Usul Kanunu — 10 yıl) ve sertifika kayıtları (MEB mevzuatı) yasal
+            nedenlerle saklanmaya devam eder; bu veriler anonim hâle getirilir ve sizinle ilişkilendirilemez.
+          </p>
+        </Madde>
+
+        <Madde num="10" id="madde-10" title="Çocukların gizliliği">
+          <p style={pStyle}>Rota Plus uygulaması 18 yaş ve üzeri bireylere yöneliktir. 18 yaş altı kullanıcılardan bilerek veri toplamayız. Bir çocuğun verisini topladığımızı tespit edersek derhal sileriz.</p>
+        </Madde>
+
+        <Madde num="11" id="madde-11" title="Veri güvenliği">
+          <p style={pStyle}>Verilerinizi korumak için aşağıdaki tedbirleri uygularız:</p>
+          <ul style={ulStyle}>
+            <Nokta>Tüm veri iletimi SSL/TLS şifreleme ile yapılır,</Nokta>
+            <Nokta>Kullanıcı şifreleri Firebase Authentication (Google) tarafından güvenli biçimde yönetilir,</Nokta>
+            <Nokta>Yetkili erişim kontrolü ve rol bazlı yetkilendirme uygulanır,</Nokta>
+            <Nokta>Düzenli güvenlik denetimleri yapılır,</Nokta>
+            <Nokta>Veri ihlali durumunda müdahale prosedürü işletilir.</Nokta>
+          </ul>
+        </Madde>
+
+        <Madde num="12" id="madde-12" title="Politika değişiklikleri">
+          <p style={pStyle}>Bu Gizlilik Politikası, yasal düzenlemeler veya uygulama özelliklerindeki değişiklikler doğrultusunda güncellenebilir. Güncel sürüm her zaman bu sayfada yayımlanır; önemli değişikliklerde uygulama içi bildirim veya e-posta yoluyla bilgilendirilirsiniz. Bu metin en son <Guclu>{LAST_UPDATED}</Guclu> tarihinde güncellenmiştir.</p>
+        </Madde>
+
+        {/* ==== ALT İLETİŞİM ==== */}
+        <div style={{ marginTop: 64, paddingTop: 40, borderTop: '1px solid var(--rt-border-strong)' }}>
+          <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+            <div style={{ maxWidth: 420 }}>
+              <div style={{ ...kutuEtiket, marginBottom: 16 }}>Sorularınız için bize ulaşın</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, fontSize: 14.5, lineHeight: 1.6, color: 'var(--rt-fg-muted)' }}>
+                <span style={{ display: 'flex', gap: 11, alignItems: 'flex-start' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rt-fg-gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flex: '0 0 auto', marginTop: 2 }}><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></svg>
+                  {ADRES}
+                </span>
+                <span style={{ display: 'flex', gap: 11, alignItems: 'center' }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--rt-fg-gold)" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" style={{ flex: '0 0 auto' }}><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" /></svg>
+                  <a href={`mailto:${CONTACT_EMAIL}`} style={{ color: 'var(--rt-fg-muted)' }}>{CONTACT_EMAIL}</a>
+                </span>
+              </div>
+            </div>
+            <Link href="/kvkk" style={{ flex: '0 0 auto', display: 'inline-flex', alignItems: 'center', gap: 10, padding: '13px 22px', borderRadius: 4, background: 'var(--rt-bg-card)', border: '1px solid var(--rt-border-strong)', color: 'var(--rt-fg-gold)', fontSize: 12, fontWeight: 600, letterSpacing: '0.08em', boxShadow: 'var(--rt-hairline)', textDecoration: 'none' }}>
+              KVKK Aydınlatma Metni
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+            </Link>
+          </div>
+          <p style={{ margin: '36px 0 0', fontSize: 12.5, color: 'var(--rt-fg-dim)' }}>© 2026 Yeni Rota Eğitim Kurumları. Tüm hakları saklıdır.</p>
+        </div>
+      </KvkkReader>
+
+      <SiteFooter />
+    </div>
+  );
 }
