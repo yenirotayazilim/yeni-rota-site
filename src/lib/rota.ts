@@ -78,12 +78,29 @@ export async function getTumKapaklar(): Promise<string[]> {
   return rows.map((r) => r.kapak_resmi);
 }
 
+// Ana sayfa eğitmen şeridi — Mustafa'nın belirlediği sıra (slug ile).
+// Geçici: ileride hocalar tablosuna sıra sütunu eklenince oradan okunacak.
+const ANA_SAYFA_EGITMEN_SIRASI = [
+  'sertan-talas',
+  'sait-sevinc',
+  'sule-cakirer',
+  'bulent-unlukalayci',
+  'hayriye-kuscu',
+  'saduman-canan-karakol',
+  'defne-duygu-uslu',
+  'k-serdar-ates',
+  'didem-nurcan-iyidogan',
+];
+
 export async function getEgitmenler(): Promise<Egitmen[]> {
   const rows = await sbSelect<{ ad_soyad: string; foto_url: string; slug: string | null; ana_sayfada: boolean | null }>(
     `hocalar?select=ad_soyad,foto_url,slug,ana_sayfada&foto_url=not.is.null&foto_url=neq.&order=ad_soyad.asc`
   );
+  const sirali = ANA_SAYFA_EGITMEN_SIRASI
+    .map((slug) => rows.find((r) => r.slug === slug))
+    .filter((r): r is (typeof rows)[number] => !!r);
   const flagged = rows.filter((r) => r.ana_sayfada);
-  const secim = (flagged.length > 0 ? flagged : rows).slice(0, 8);
+  const secim = sirali.length > 0 ? sirali : (flagged.length > 0 ? flagged : rows).slice(0, 8);
   return secim.map((r) => ({ ad: trTitleCase(r.ad_soyad), foto: r.foto_url, slug: r.slug }));
 }
 
