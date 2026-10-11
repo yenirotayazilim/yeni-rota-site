@@ -175,13 +175,6 @@ export default function Navbar() {
           >
             Öğrenci Girişi
           </Link>
-          <Link
-            href="/odeme"
-            className="px-5 py-2 rounded-xl font-bold shadow-lg bg-gradient-to-r from-[#6A0572] to-[#8C1A85] text-white hover:bg-[#8C1A85] hover:from-[#8C1A85] hover:to-[#8C1A85] hover:text-white transition-colors duration-500"
-            style={{ border: "none" }}
-          >
-            Ödeme Ekranı
-          </Link>
         </div>
 
         {/* Mobil Menü Toggle */}
@@ -248,13 +241,6 @@ export default function Navbar() {
             className="rounded-xl px-4 py-2 text-center font-semibold bg-[#6A0572] text-white border border-[#6A0572] hover:bg-[#8C1A85] transition"
           >
             Öğrenci Giriş
-          </Link>
-          <Link
-            href="/odeme"
-            className="rounded-xl px-4 py-2 text-center font-bold"
-            style={{ background: "linear-gradient(90deg, #6A0572 0%, #8C1A85 100%)", color: "#fff" }}
-          >
-            Ödeme Ekranı
           </Link>
         </div>
       </div>
