@@ -11,11 +11,10 @@ export default function SiteFooter() {
             src="/marka/wordmark-light.png"
             srcSet="/marka/wordmark-light.png 1x, /marka/wordmark-light-2x.png 2x"
             alt="Yeni Rota Eğitim Kurumları"
-            style={{ height: 84, width: 'auto', display: 'block', marginBottom: 22 }}
+            style={{ height: 112, width: 'auto', display: 'block', marginBottom: 18 }}
           />
-          <p style={{ margin: 0, maxWidth: 320, fontSize: '13.5px', lineHeight: 1.7, color: '#b8a9c2', textWrap: 'pretty' }}>
-            Yeni Rota Eğitim Kurumları — Millî Eğitim Bakanlığı ruhsatlı özel öğretim kurumu.
-            Kişisel gelişim, sağlık ve psikoloji alanlarında sertifikalı programlar.
+          <p style={{ margin: 0, fontFamily: 'var(--rt-font-display)', fontSize: 20, lineHeight: 1.3, letterSpacing: '0.02em', color: '#efe6d8' }}>
+            Yeni Rota Eğitim Kurumları
           </p>
         </div>
 
@@ -23,9 +22,9 @@ export default function SiteFooter() {
           <div className="rt-footer-head">İletişim</div>
           <div className="rt-footer-col">
             <span>
-              Ziya Gökalp Caddesi, Arıkoğlu İş Merkezi
+              Şehit Daniş Tunalıgil Sokak No: 2/5
               <br />
-              No: 21/8 Çankaya / Ankara
+              Maltepe, Çankaya / Ankara
             </span>
             <a href="tel:+903122857682">+90 312 285 76 82</a>
             <a href="mailto:info@yenirotaegitim.com">info@yenirotaegitim.com</a>

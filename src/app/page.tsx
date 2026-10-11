@@ -25,7 +25,7 @@ const orgJsonLd = {
   email: 'info@yenirotaegitim.com',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Ziya Gökalp Caddesi, Arıkoğlu İş Merkezi No: 21/8',
+    streetAddress: 'Şehit Daniş Tunalıgil Sokak No: 2/5, Maltepe',
     addressLocality: 'Çankaya',
     addressRegion: 'Ankara',
     addressCountry: 'TR',

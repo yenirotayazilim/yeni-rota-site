@@ -12,7 +12,7 @@ import BilgiFormu from '@/components/rota/BilgiFormu';
 export const metadata: Metadata = {
   title: 'İletişim',
   description:
-    'Yeni Rota Eğitim Kurumları iletişim: Ziya Gökalp Cad. Arıkoğlu İş Merkezi No: 21/8 Çankaya/Ankara · +90 312 285 76 82 · info@yenirotaegitim.com',
+    'Yeni Rota Eğitim Kurumları iletişim: Şehit Daniş Tunalıgil Sk. No: 2/5 Maltepe, Çankaya/Ankara · +90 312 285 76 82 · info@yenirotaegitim.com',
   alternates: { canonical: '/iletisim' },
   openGraph: {
     title: 'İletişim | Yeni Rota Eğitim Kurumları',
@@ -29,9 +29,9 @@ export const metadata: Metadata = {
 const MERKEZLER = [
   {
     ad: 'Ankara Merkez',
-    adres: ['Ziya Gökalp Cad. Arıkoğlu İş Merkezi No: 21/8', 'Çankaya / Ankara'],
+    adres: ['Şehit Daniş Tunalıgil Sokak No: 2/5', 'Maltepe, Çankaya / Ankara'],
     yolTarifi:
-      'https://www.google.com/maps/search/?api=1&query=Ziya+G%C3%B6kalp+Cad.+Ar%C4%B1ko%C4%9Flu+%C4%B0%C5%9F+Merkezi+No+21+%C3%87ankaya+Ankara',
+      'https://www.google.com/maps/search/?api=1&query=%C5%9Eehit+Dani%C5%9F+Tunal%C4%B1gil+Sokak+No+2+Maltepe+%C3%87ankaya+Ankara',
   },
 ];
 
@@ -48,7 +48,7 @@ const iletisimJsonLd = {
     email: 'info@yenirotaegitim.com',
     address: {
       '@type': 'PostalAddress',
-      streetAddress: 'Ziya Gökalp Caddesi, Arıkoğlu İş Merkezi No: 21/8',
+      streetAddress: 'Şehit Daniş Tunalıgil Sokak No: 2/5, Maltepe',
       addressLocality: 'Çankaya',
       addressRegion: 'Ankara',
       addressCountry: 'TR',
