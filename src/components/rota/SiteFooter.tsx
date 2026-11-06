@@ -37,6 +37,7 @@ export default function SiteFooter() {
             <a href="/hakkimizda">Hakkımızda</a>
             <a href="/kvkk">KVKK aydınlatma metni</a>
             <a href="/gizlilik-politikasi">Gizlilik politikası</a>
+            <a href="/hizmet-sartlari">Hizmet şartları</a>
             <a href="/iletisim">İletişim</a>
           </div>
         </div>
